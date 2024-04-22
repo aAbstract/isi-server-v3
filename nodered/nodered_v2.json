@@ -1,0 +1,6949 @@
+[
+    {
+        "id": "9de85e09f0e9cf6a",
+        "type": "tab",
+        "label": "on_start",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "74b70d7da8eb5802",
+        "type": "tab",
+        "label": "monitor_http_service",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "75e40e2768e14099",
+        "type": "tab",
+        "label": "auth_http_service",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9d4cf16a896731e3",
+        "type": "tab",
+        "label": "users_http_service",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3d401813ea27faaf",
+        "type": "tab",
+        "label": "rooms_http_service",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2e87f2d8cbe74afe",
+        "type": "tab",
+        "label": "devices_http_service",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "4ab863cc96f52882",
+        "type": "tab",
+        "label": "scenes_engine",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "00d1bba548b033c7",
+        "type": "tab",
+        "label": "system_automations",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2679f058c89dc8ce",
+        "type": "tab",
+        "label": "mqtt_gateway",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "dde7f7ee229054f2",
+        "type": "tab",
+        "label": "experimental",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "3222465e6f745686",
+        "type": "mqtt-broker",
+        "name": "ubuntu_vm_isi_emb",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "359745e791749f13",
+        "type": "serial-port",
+        "serialport": "/dev/ttyUSB1",
+        "serialbaud": "115200",
+        "databits": "8",
+        "parity": "none",
+        "stopbits": "1",
+        "waitfor": "{",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "}",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": "10000"
+    },
+    {
+        "id": "ff555fb22ee234e0",
+        "type": "inject",
+        "z": "9de85e09f0e9cf6a",
+        "name": "on_start",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 260,
+        "wires": [
+            [
+                "17e4fa6c30423fbc",
+                "7e80e7f699c79306",
+                "f82e697a3dc1d14a",
+                "28b982735e197471",
+                "f0a53bef04cb17b8",
+                "d9c6ed99ff2db6bf"
+            ]
+        ]
+    },
+    {
+        "id": "17e4fa6c30423fbc",
+        "type": "file in",
+        "z": "9de85e09f0e9cf6a",
+        "name": "read_system_users",
+        "filename": "${USER_DATA_DIR}/users.json",
+        "filenameType": "env",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 410,
+        "y": 60,
+        "wires": [
+            [
+                "e44ce3df0f07bbe5"
+            ]
+        ]
+    },
+    {
+        "id": "e44ce3df0f07bbe5",
+        "type": "json",
+        "z": "9de85e09f0e9cf6a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 60,
+        "wires": [
+            [
+                "c34b4cb8ec5ef939"
+            ]
+        ]
+    },
+    {
+        "id": "c34b4cb8ec5ef939",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "set_system_users",
+        "func": "global.set('users', msg.payload.users);\nglobal.set('user_last_id', msg.payload.last_id);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e80e7f699c79306",
+        "type": "file in",
+        "z": "9de85e09f0e9cf6a",
+        "name": "read_system_devices",
+        "filename": "${USER_DATA_DIR}/devices.json",
+        "filenameType": "env",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 420,
+        "y": 120,
+        "wires": [
+            [
+                "fe0622a492971bd2"
+            ]
+        ]
+    },
+    {
+        "id": "fe0622a492971bd2",
+        "type": "json",
+        "z": "9de85e09f0e9cf6a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 120,
+        "wires": [
+            [
+                "4f8422ae1d1bd368"
+            ]
+        ]
+    },
+    {
+        "id": "4f8422ae1d1bd368",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "set_system_devices",
+        "func": "global.set('devices', msg.payload.devices);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f82e697a3dc1d14a",
+        "type": "file in",
+        "z": "9de85e09f0e9cf6a",
+        "name": "read_system_rooms",
+        "filename": "${USER_DATA_DIR}/rooms.json",
+        "filenameType": "env",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "74d363a612390e51"
+            ]
+        ]
+    },
+    {
+        "id": "74d363a612390e51",
+        "type": "json",
+        "z": "9de85e09f0e9cf6a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 180,
+        "wires": [
+            [
+                "b10d590ed882125d"
+            ]
+        ]
+    },
+    {
+        "id": "b10d590ed882125d",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "set_system_rooms",
+        "func": "global.set('rooms', msg.payload.rooms);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 810,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3edeab19eae2627a",
+        "type": "catch",
+        "z": "9de85e09f0e9cf6a",
+        "name": "load_sys_users_error",
+        "scope": [
+            "17e4fa6c30423fbc",
+            "7e80e7f699c79306",
+            "f82e697a3dc1d14a"
+        ],
+        "uncaught": false,
+        "x": 420,
+        "y": 540,
+        "wires": [
+            [
+                "ee8e1d805dd73555"
+            ]
+        ]
+    },
+    {
+        "id": "ee8e1d805dd73555",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "sys_logger",
+        "func": "const { cust_logger } = context.global;\ncust_logger.sys_log({\n    level: 'ERROR',\n    module_id: node.id,\n    desc: msg.error.message,\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "28b982735e197471",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "set_up_link_flag",
+        "func": "global.set('up_link', false);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f0a53bef04cb17b8",
+        "type": "file in",
+        "z": "9de85e09f0e9cf6a",
+        "name": "read_mqtt_broker_creds",
+        "filename": "${USER_DATA_DIR}/mqtt_broker_creds.json",
+        "filenameType": "env",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "4fe089c5a65cd103"
+            ]
+        ]
+    },
+    {
+        "id": "4fe089c5a65cd103",
+        "type": "json",
+        "z": "9de85e09f0e9cf6a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 240,
+        "wires": [
+            [
+                "60f04f42aa5a591a"
+            ]
+        ]
+    },
+    {
+        "id": "60f04f42aa5a591a",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "set_mqtt_broker_creds",
+        "func": "global.set('mqtt_broker_creds', msg.payload);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "94fa99a86893659c",
+        "type": "exec",
+        "z": "9de85e09f0e9cf6a",
+        "command": "sudo systemctl start isi_surveillance_server.service",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "start_surveillance_server",
+        "x": 430,
+        "y": 460,
+        "wires": [
+            [],
+            [],
+            [
+                "c39eb096443e81cb"
+            ]
+        ]
+    },
+    {
+        "id": "c39eb096443e81cb",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "sys_logger",
+        "func": "const { cust_logger } = context.global;\n\nif (msg.payload.code !== 0) {\n    cust_logger.sys_log({\n        level: 'ERROR',\n        module_id: node.id,\n        desc: msg.payload.message.split('\\n')[0],\n    });\n    return;\n}\n\ncust_logger.sys_log({\n    level: 'INFO',\n    module_id: node.id,\n    desc: 'Surveillance Server Started',\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 670,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d9c6ed99ff2db6bf",
+        "type": "file in",
+        "z": "9de85e09f0e9cf6a",
+        "name": "read_scenes",
+        "filename": "${USER_DATA_DIR}/scenes.json",
+        "filenameType": "env",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 390,
+        "y": 300,
+        "wires": [
+            [
+                "993cf5dd98116eeb"
+            ]
+        ]
+    },
+    {
+        "id": "993cf5dd98116eeb",
+        "type": "json",
+        "z": "9de85e09f0e9cf6a",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 630,
+        "y": 300,
+        "wires": [
+            [
+                "db0823d5521008b3"
+            ]
+        ]
+    },
+    {
+        "id": "db0823d5521008b3",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "set_scenes",
+        "func": "global.set('scenes', msg.payload.scenes);\nglobal.set('scene_last_id', msg.payload.last_id);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8caa5f91ccc2b1c1",
+        "type": "inject",
+        "z": "9de85e09f0e9cf6a",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 380,
+        "y": 640,
+        "wires": [
+            [
+                "b9434037a244d0b9"
+            ]
+        ]
+    },
+    {
+        "id": "b9434037a244d0b9",
+        "type": "function",
+        "z": "9de85e09f0e9cf6a",
+        "name": "get_system_devices",
+        "func": "msg.devices = global.get('devices');\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 640,
+        "wires": [
+            [
+                "0b65812baf047395"
+            ]
+        ]
+    },
+    {
+        "id": "0b65812baf047395",
+        "type": "debug",
+        "z": "9de85e09f0e9cf6a",
+        "name": "comp_msg_dbg",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "9301909e83f34217",
+        "type": "http in",
+        "z": "74b70d7da8eb5802",
+        "name": "test_server_online_request",
+        "url": "${TEST_ROUTE}",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 250,
+        "y": 160,
+        "wires": [
+            [
+                "1dda013b7ca8b90b",
+                "1000de611b32af19"
+            ]
+        ]
+    },
+    {
+        "id": "1dda013b7ca8b90b",
+        "type": "change",
+        "z": "74b70d7da8eb5802",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"msg\": \"server online\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 460,
+        "y": 160,
+        "wires": [
+            [
+                "0561472951e18385",
+                "6fe78676f459e811"
+            ]
+        ]
+    },
+    {
+        "id": "0561472951e18385",
+        "type": "http response",
+        "z": "74b70d7da8eb5802",
+        "name": "test_server_online_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 680,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "1000de611b32af19",
+        "type": "function",
+        "z": "74b70d7da8eb5802",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6fe78676f459e811",
+        "type": "function",
+        "z": "74b70d7da8eb5802",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b94767488af2adcf",
+        "type": "http in",
+        "z": "75e40e2768e14099",
+        "name": "login_request",
+        "url": "${LOGIN_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 280,
+        "wires": [
+            [
+                "3e5bd680684a9c51",
+                "831e24513149f9da"
+            ]
+        ]
+    },
+    {
+        "id": "3e5bd680684a9c51",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "user_in_database_check",
+        "func": "const system_users = global.get('users');\nmsg.user_exists = msg.payload.username in system_users;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 280,
+        "wires": [
+            [
+                "7308b9b4beaa146c"
+            ]
+        ]
+    },
+    {
+        "id": "7308b9b4beaa146c",
+        "type": "switch",
+        "z": "75e40e2768e14099",
+        "name": "",
+        "property": "user_exists",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 280,
+        "wires": [
+            [
+                "f204389427ae97a0"
+            ],
+            [
+                "5f0e099ea178e010"
+            ]
+        ]
+    },
+    {
+        "id": "96c942ca5b714df5",
+        "type": "change",
+        "z": "75e40e2768e14099",
+        "name": "set_401",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "401",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"success\":false,\"msg\":\"Login Failed, Invalid User Credentials\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1480,
+        "y": 280,
+        "wires": [
+            [
+                "43b9f936de5b8e9c",
+                "d764f2c63bed3fe9"
+            ]
+        ]
+    },
+    {
+        "id": "43b9f936de5b8e9c",
+        "type": "http response",
+        "z": "75e40e2768e14099",
+        "name": "login_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1660,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "f204389427ae97a0",
+        "type": "change",
+        "z": "75e40e2768e14099",
+        "name": "get_req_password",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload",
+                "pt": "msg",
+                "to": "login_request",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "login_request.password",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 770,
+        "y": 260,
+        "wires": [
+            [
+                "8ac6bb68b6ca9c4d"
+            ]
+        ]
+    },
+    {
+        "id": "8ac6bb68b6ca9c4d",
+        "type": "hmac",
+        "z": "75e40e2768e14099",
+        "name": "",
+        "algorithm": "HmacSHA512",
+        "key": "${HMAC_KEY}",
+        "x": 950,
+        "y": 260,
+        "wires": [
+            [
+                "9ab44005eaf48599"
+            ]
+        ]
+    },
+    {
+        "id": "9ab44005eaf48599",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "check_password_hash",
+        "func": "const system_users = global.get('users');\nconst username = msg.login_request.username;\nconst password_hash = system_users[username]['password_hash'];\nmsg.hash_match = msg.payload === password_hash;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1140,
+        "y": 260,
+        "wires": [
+            [
+                "abd5f99e87ef8111"
+            ]
+        ]
+    },
+    {
+        "id": "abd5f99e87ef8111",
+        "type": "switch",
+        "z": "75e40e2768e14099",
+        "name": "",
+        "property": "hash_match",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1330,
+        "y": 260,
+        "wires": [
+            [
+                "57d8085cf324cdec"
+            ],
+            [
+                "96c942ca5b714df5"
+            ]
+        ]
+    },
+    {
+        "id": "d7ec7c998c96e8c9",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "create_jwt_token",
+        "func": "const { jwt } = context.global;\nlet jwt_key = env.get('JWT_KEY');\n\nlet claims = {\n    'username': msg.user_info.username,\n    'full_name': msg.user_info.full_name,\n    'role': msg.user_info.role,\n};\n\nlet token = jwt.sign(claims, jwt_key, { expiresIn: '24h' });\n\nmsg.payload = token;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1710,
+        "y": 240,
+        "wires": [
+            [
+                "c6c9020cf71b509a"
+            ]
+        ]
+    },
+    {
+        "id": "c6c9020cf71b509a",
+        "type": "change",
+        "z": "75e40e2768e14099",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": {\t        \"access_token\": msg.payload,\t        \"mqtt_broker_creds\": $globalContext('mqtt_broker_creds')\t    }   \t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1900,
+        "y": 240,
+        "wires": [
+            [
+                "9dab3722ab6f14f8"
+            ]
+        ]
+    },
+    {
+        "id": "5f0e099ea178e010",
+        "type": "change",
+        "z": "75e40e2768e14099",
+        "name": "set_401",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "401",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"success\":false,\"msg\":\"Login Failed, Invalid User Credentials\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 320,
+        "wires": [
+            [
+                "d54b478e854da7db",
+                "5350e5cd48c90616"
+            ]
+        ]
+    },
+    {
+        "id": "d54b478e854da7db",
+        "type": "http response",
+        "z": "75e40e2768e14099",
+        "name": "login_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 920,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "9dab3722ab6f14f8",
+        "type": "http response",
+        "z": "75e40e2768e14099",
+        "name": "login_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 2080,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "831e24513149f9da",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5350e5cd48c90616",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d764f2c63bed3fe9",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1660,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "57d8085cf324cdec",
+        "type": "function",
+        "z": "75e40e2768e14099",
+        "name": "inject_user_info",
+        "func": "const system_users = global.get('users');\nconst username = msg.login_request.username;\nmsg.user_info = system_users[username];\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1500,
+        "y": 240,
+        "wires": [
+            [
+                "d7ec7c998c96e8c9"
+            ]
+        ]
+    },
+    {
+        "id": "96f1704f918ddfc3",
+        "type": "http in",
+        "z": "9d4cf16a896731e3",
+        "name": "update_user_request",
+        "url": "${UPDATE_USER_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 120,
+        "wires": [
+            [
+                "e08aca6576061636",
+                "97cd2a4a78add40d"
+            ]
+        ]
+    },
+    {
+        "id": "e08aca6576061636",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 120,
+        "wires": [
+            [
+                "2e4f3c465c8b8892"
+            ]
+        ]
+    },
+    {
+        "id": "2e4f3c465c8b8892",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 120,
+        "wires": [
+            [
+                "0347583bb7f071ae"
+            ],
+            [
+                "c896d0c91fabcd16"
+            ]
+        ]
+    },
+    {
+        "id": "97cd2a4a78add40d",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0347583bb7f071ae",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 80,
+        "wires": [
+            [
+                "d4259cbd35b56853",
+                "10d509d80161250f"
+            ]
+        ]
+    },
+    {
+        "id": "d4259cbd35b56853",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "update_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 940,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "10d509d80161250f",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f8987b68ffdb7d8e",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "user_exists",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 930,
+        "y": 220,
+        "wires": [
+            [
+                "9d663844833a6f40"
+            ],
+            [
+                "21dcb1756832dd32"
+            ]
+        ]
+    },
+    {
+        "id": "c896d0c91fabcd16",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "is_user_exists",
+        "func": "const system_users = global.get('users');\nconst username = msg.req.body.username ?? '';\nconst user_exists = username in system_users;\n\nmsg.user_exists = user_exists;\nif (!user_exists) {\n    msg.status_code = 404;\n    msg.service_msg = 'User Not Found';\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 220,
+        "wires": [
+            [
+                "f8987b68ffdb7d8e"
+            ]
+        ]
+    },
+    {
+        "id": "7f0358f31a378fec",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9d663844833a6f40",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 180,
+        "wires": [
+            [
+                "7f0358f31a378fec",
+                "714e4a1c77d293d7"
+            ]
+        ]
+    },
+    {
+        "id": "714e4a1c77d293d7",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "update_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1280,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "21dcb1756832dd32",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "is_valid_action",
+        "func": "const system_users = global.get('users');\nconst username = msg.req.body.username;\nconst update_keys = Object.keys(msg.req.body);\nconst user_update_keys = ['full_name', 'password', 'username'];\nconst valid_action = update_keys.every(x => user_update_keys.includes(x));\nmsg.valid_action = valid_action;\nif (!valid_action) {\n    msg.status_code = 400;\n    msg.service_msg = 'Invalid Update Key';\n    return msg;\n}\nmsg.update_keys = update_keys;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1100,
+        "y": 300,
+        "wires": [
+            [
+                "1067d1d80ec5eff1"
+            ]
+        ]
+    },
+    {
+        "id": "7e7c5a7cc7fa44f2",
+        "type": "file",
+        "z": "9d4cf16a896731e3",
+        "name": "write_system_users",
+        "filename": "${USER_DATA_DIR}/users.json",
+        "filenameType": "env",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1640,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1067d1d80ec5eff1",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "valid_action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1270,
+        "y": 300,
+        "wires": [
+            [
+                "9c9445c356ccf1d9"
+            ],
+            [
+                "bf07ef9d8c2b6dd5"
+            ]
+        ]
+    },
+    {
+        "id": "a0b76bfd3095897a",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "update_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1620,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "4731a3933e356887",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1600,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9c9445c356ccf1d9",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 260,
+        "wires": [
+            [
+                "a0b76bfd3095897a",
+                "4731a3933e356887"
+            ]
+        ]
+    },
+    {
+        "id": "bf07ef9d8c2b6dd5",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "update_user",
+        "func": "/** @type {string[]} */\nconst update_keys = msg.update_keys;\nconst system_users = global.get('users');\nconst last_id = global.get('user_last_id');\nconst username = msg.req.body.username;\nupdate_keys.forEach(key => {\n    if (key === 'username')\n        return;\n\n    if (key === 'password') {\n        const { cjs_hmac_sha512 } = context.global;\n        const HMAC_KEY = env.get('HMAC_KEY');\n        const new_hash = cjs_hmac_sha512(msg.req.body[key], HMAC_KEY).toString();\n        system_users[username]['password_hash'] = new_hash;\n        return;\n    }\n    \n    system_users[username][key] = msg.req.body[key];\n});\nglobal.set('users', system_users);\nmsg.payload = { users: system_users, last_id };\nmsg.user_info = system_users[username];\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1430,
+        "y": 360,
+        "wires": [
+            [
+                "7e7c5a7cc7fa44f2",
+                "f02189c7a512c934"
+            ]
+        ]
+    },
+    {
+        "id": "319d2280c73b8ee7",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "update_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 2020,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "f02189c7a512c934",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "create_jwt_token",
+        "func": "const { jwt } = context.global;\nlet jwt_key = env.get('JWT_KEY');\n\nlet claims = {\n    'username': msg.user_info.username,\n    'full_name': msg.user_info.full_name,\n    'role': msg.user_info.role,\n};\n\nlet token = jwt.sign(claims, jwt_key, { expiresIn: '24h' });\n\nmsg.payload = token;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1630,
+        "y": 360,
+        "wires": [
+            [
+                "d281ca448c07f7b8"
+            ]
+        ]
+    },
+    {
+        "id": "d281ca448c07f7b8",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": { \"access_token\": msg.payload }   \t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1820,
+        "y": 360,
+        "wires": [
+            [
+                "319d2280c73b8ee7"
+            ]
+        ]
+    },
+    {
+        "id": "a65341056e297f14",
+        "type": "http in",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_get_users_request",
+        "url": "${ADMIN_GET_USERS_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 500,
+        "wires": [
+            [
+                "0eb8451df48318c6",
+                "02e278a839fab330"
+            ]
+        ]
+    },
+    {
+        "id": "0eb8451df48318c6",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 500,
+        "wires": [
+            [
+                "140f2fa1f1dbd36e"
+            ]
+        ]
+    },
+    {
+        "id": "02e278a839fab330",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "140f2fa1f1dbd36e",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 500,
+        "wires": [
+            [
+                "633bd06bc5d03912"
+            ],
+            [
+                "f3e1facd6f5853ef"
+            ]
+        ]
+    },
+    {
+        "id": "633bd06bc5d03912",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 460,
+        "wires": [
+            [
+                "0c3058c91dcb8b96",
+                "70bd8ab1f219f198"
+            ]
+        ]
+    },
+    {
+        "id": "0c3058c91dcb8b96",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "get_users_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 940,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "70bd8ab1f219f198",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f3e1facd6f5853ef",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "get_users",
+        "func": "const system_users = global.get('users');\nlet usernames = Object.keys(system_users);\nconst users_list = [];\nusernames.forEach(username => {\n    if (username === msg.user.username)\n        return;\n\n    const user_clone = JSON.parse(JSON.stringify(system_users[username]));\n    delete user_clone.password_hash;\n    users_list.push(user_clone);\n});\nmsg.users = users_list;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 540,
+        "wires": [
+            [
+                "af2ad4f2b5b9cf0d"
+            ]
+        ]
+    },
+    {
+        "id": "af2ad4f2b5b9cf0d",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": {\t        \"users\": msg.users\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 540,
+        "wires": [
+            [
+                "31ba78917b987afc"
+            ]
+        ]
+    },
+    {
+        "id": "31ba78917b987afc",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "get_users_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1100,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "f242227ea300a12d",
+        "type": "http in",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_create_user_request",
+        "url": "${ADMIN_CREATE_USER_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 700,
+        "wires": [
+            [
+                "51702de3f5fbcc03",
+                "232fbf5f609fe79b"
+            ]
+        ]
+    },
+    {
+        "id": "51702de3f5fbcc03",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 700,
+        "wires": [
+            [
+                "eaed66c70b40a15f"
+            ]
+        ]
+    },
+    {
+        "id": "232fbf5f609fe79b",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "eaed66c70b40a15f",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 700,
+        "wires": [
+            [
+                "4d65527a78889279"
+            ],
+            [
+                "cddf94bd45902989"
+            ]
+        ]
+    },
+    {
+        "id": "4d65527a78889279",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 660,
+        "wires": [
+            [
+                "db95b3825ba20276",
+                "237c5b292024a7ff"
+            ]
+        ]
+    },
+    {
+        "id": "db95b3825ba20276",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_create_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "237c5b292024a7ff",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce2859edb9cee49e",
+        "type": "file",
+        "z": "9d4cf16a896731e3",
+        "name": "write_system_users",
+        "filename": "${USER_DATA_DIR}/users.json",
+        "filenameType": "env",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1660,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c92c39ec59a299dd",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": { \"user_id\": msg.user_id },\t    \"msg\": \"OK\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1620,
+        "y": 900,
+        "wires": [
+            [
+                "c6892a686fbfaf71"
+            ]
+        ]
+    },
+    {
+        "id": "c6892a686fbfaf71",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_create_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1850,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "cddf94bd45902989",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "is_valid_action",
+        "func": "const req_user = msg.req.body.user ?? {};\nconst req_user_info_keys = Object.keys(req_user);\nconst user_info_keys = ['username', 'full_name', 'password'];\nconst valid_action = user_info_keys.every(x => req_user_info_keys.includes(x));\nmsg.valid_action = valid_action;\nif (!valid_action) {\n    msg.status_code = 400;\n    msg.service_msg = 'Invalid User Object';\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 780,
+        "wires": [
+            [
+                "6f2bb1a4ee1c1216"
+            ]
+        ]
+    },
+    {
+        "id": "6f2bb1a4ee1c1216",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "valid_action",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 950,
+        "y": 780,
+        "wires": [
+            [
+                "ce9869eabf2b9ff7"
+            ],
+            [
+                "92e43ab269a2717c"
+            ]
+        ]
+    },
+    {
+        "id": "e9018b0cc235fe84",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce9869eabf2b9ff7",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 740,
+        "wires": [
+            [
+                "e9018b0cc235fe84",
+                "c3cf22882314adcd"
+            ]
+        ]
+    },
+    {
+        "id": "c3cf22882314adcd",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_create_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1330,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "92e43ab269a2717c",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "is_user_exists",
+        "func": "const system_users = global.get('users');\nconst username = msg.req.body.user.username;\nconst user_exists = username in system_users;\n\nmsg.user_exists = user_exists;\nif (user_exists) {\n    msg.status_code = 400;\n    msg.service_msg = 'Username Already Exists';\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 860,
+        "wires": [
+            [
+                "ff9ee8dfe90458bb"
+            ]
+        ]
+    },
+    {
+        "id": "ff9ee8dfe90458bb",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "user_exists",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1290,
+        "y": 860,
+        "wires": [
+            [
+                "5cce36ec247052fc"
+            ],
+            [
+                "3ef887a4b5d6f0c9"
+            ]
+        ]
+    },
+    {
+        "id": "0e69543cb565ab75",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d4740c9372d3134a",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_create_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1670,
+        "y": 820,
+        "wires": []
+    },
+    {
+        "id": "5cce36ec247052fc",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 820,
+        "wires": [
+            [
+                "d4740c9372d3134a",
+                "0e69543cb565ab75"
+            ]
+        ]
+    },
+    {
+        "id": "3ef887a4b5d6f0c9",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "create_user",
+        "func": "const system_users = global.get('users');\nconst last_id = global.get('user_last_id');\nconst user_id = last_id + 1;\nconst { username, full_name, password } = msg.req.body.user;\nconst password_hash = '';\n\nconst new_user = {\n    user_id,\n    username,\n    full_name,\n    password_hash,\n    role: 'USER',\n    is_online: false,\n};\n\nsystem_users[new_user.username] = new_user;\nglobal.set('users', system_users);\nglobal.set('user_last_id', user_id);\nmsg.payload = {\n    users: system_users,\n    last_id: user_id,\n};\nmsg.user_id = user_id;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1450,
+        "y": 900,
+        "wires": [
+            [
+                "c92c39ec59a299dd",
+                "ce2859edb9cee49e"
+            ]
+        ]
+    },
+    {
+        "id": "06a4e5a3b50bb558",
+        "type": "http in",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_delete_user_request",
+        "url": "${ADMIN_DELETE_USER_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 1040,
+        "wires": [
+            [
+                "c29a112323bb25d6",
+                "a45cd4f8d835cff6"
+            ]
+        ]
+    },
+    {
+        "id": "5d150823b683c713",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1040,
+        "wires": [
+            [
+                "1036ac8e831b40a2"
+            ],
+            [
+                "faf73fa59db3cbf4"
+            ]
+        ]
+    },
+    {
+        "id": "c29a112323bb25d6",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1040,
+        "wires": [
+            [
+                "5d150823b683c713"
+            ]
+        ]
+    },
+    {
+        "id": "a45cd4f8d835cff6",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "addb0a0c32c6d05e",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_delete_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 990,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b8a325dd7c020646",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1036ac8e831b40a2",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 1000,
+        "wires": [
+            [
+                "addb0a0c32c6d05e",
+                "b8a325dd7c020646"
+            ]
+        ]
+    },
+    {
+        "id": "faf73fa59db3cbf4",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "is_user_exist",
+        "func": "const system_users = global.get('users');\nconst user_exist = msg.req.body.username in system_users;\nmsg.user_exist = user_exist;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 1120,
+        "wires": [
+            [
+                "283cc0b8be6d5549"
+            ]
+        ]
+    },
+    {
+        "id": "283cc0b8be6d5549",
+        "type": "switch",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "user_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 930,
+        "y": 1120,
+        "wires": [
+            [
+                "f2afd50fd78a39fe"
+            ],
+            [
+                "dc1981802ed8cd00"
+            ]
+        ]
+    },
+    {
+        "id": "9ffa7e8b66153806",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1260,
+        "y": 1120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f2afd50fd78a39fe",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_404",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "404",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": \"User Not Found\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 1080,
+        "wires": [
+            [
+                "9ffa7e8b66153806",
+                "43677b8196a5f320"
+            ]
+        ]
+    },
+    {
+        "id": "9d5b574a4a870865",
+        "type": "change",
+        "z": "9d4cf16a896731e3",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"msg\": \"OK\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1640,
+        "y": 1160,
+        "wires": [
+            [
+                "8b15f18963b5cc65"
+            ]
+        ]
+    },
+    {
+        "id": "03ab024e5643eded",
+        "type": "json",
+        "z": "9d4cf16a896731e3",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1250,
+        "y": 1160,
+        "wires": [
+            [
+                "135d013a6c628b0e"
+            ]
+        ]
+    },
+    {
+        "id": "dc1981802ed8cd00",
+        "type": "function",
+        "z": "9d4cf16a896731e3",
+        "name": "delete_user",
+        "func": "const system_users = global.get('users');\nconst last_id = global.get('user_last_id');\nconst username = msg.req.body.username;\n\ndelete system_users[username];\n\nglobal.set('users', system_users);\nmsg.payload = { users: system_users, last_id };\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1090,
+        "y": 1160,
+        "wires": [
+            [
+                "03ab024e5643eded"
+            ]
+        ]
+    },
+    {
+        "id": "43677b8196a5f320",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_delete_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1310,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "8b15f18963b5cc65",
+        "type": "http response",
+        "z": "9d4cf16a896731e3",
+        "name": "admin_delete_user_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1870,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "135d013a6c628b0e",
+        "type": "file",
+        "z": "9d4cf16a896731e3",
+        "name": "write_system_users",
+        "filename": "${USER_DATA_DIR}/users.json",
+        "filenameType": "env",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1440,
+        "y": 1160,
+        "wires": [
+            [
+                "9d5b574a4a870865"
+            ]
+        ]
+    },
+    {
+        "id": "aac398e2bb900f04",
+        "type": "http in",
+        "z": "3d401813ea27faaf",
+        "name": "get_rooms_request",
+        "url": "${GET_ROOMS_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "1261fd0029c9a05c",
+                "4bc20e5a4bb694f2"
+            ]
+        ]
+    },
+    {
+        "id": "b8b3fd32a2cbced1",
+        "type": "function",
+        "z": "3d401813ea27faaf",
+        "name": "get_rooms",
+        "func": "const system_rooms = global.get('rooms');\nmsg.rooms = Object.values(system_rooms);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 690,
+        "y": 180,
+        "wires": [
+            [
+                "ca2f0128a398f18d"
+            ]
+        ]
+    },
+    {
+        "id": "1261fd0029c9a05c",
+        "type": "function",
+        "z": "3d401813ea27faaf",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "5be685f58e1b35bf"
+            ]
+        ]
+    },
+    {
+        "id": "5be685f58e1b35bf",
+        "type": "switch",
+        "z": "3d401813ea27faaf",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 200,
+        "wires": [
+            [
+                "b8b3fd32a2cbced1"
+            ],
+            [
+                "e7fd0b5cbba71d3c"
+            ]
+        ]
+    },
+    {
+        "id": "e7fd0b5cbba71d3c",
+        "type": "change",
+        "z": "3d401813ea27faaf",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 240,
+        "wires": [
+            [
+                "947eaa909481c7b4",
+                "74b6ca76a76b7520"
+            ]
+        ]
+    },
+    {
+        "id": "947eaa909481c7b4",
+        "type": "http response",
+        "z": "3d401813ea27faaf",
+        "name": "get_rooms_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 880,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "660cb56bd4be995c",
+        "type": "http response",
+        "z": "3d401813ea27faaf",
+        "name": "get_rooms_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1060,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ca2f0128a398f18d",
+        "type": "change",
+        "z": "3d401813ea27faaf",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": {\t        \"rooms\": msg.rooms\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 860,
+        "y": 180,
+        "wires": [
+            [
+                "660cb56bd4be995c"
+            ]
+        ]
+    },
+    {
+        "id": "4bc20e5a4bb694f2",
+        "type": "function",
+        "z": "3d401813ea27faaf",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "74b6ca76a76b7520",
+        "type": "function",
+        "z": "3d401813ea27faaf",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c6655b2b2580a9c1",
+        "type": "http in",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_room_devices_request",
+        "url": "${GET_ROOM_DEVICES_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 180,
+        "wires": [
+            [
+                "70370dfea1b8972f",
+                "f19eced070ee96a5"
+            ]
+        ]
+    },
+    {
+        "id": "f8de3e4430b91b06",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_room_devices",
+        "func": "const system_devices = global.get('devices');\nlet devices_names = Object.keys(system_devices);\nconst devices_list = [];\ndevices_names.forEach(device_name => {\n    const device_obj = system_devices[device_name];\n    if (device_obj.room_name === msg.payload.room_name)\n        devices_list.push(device_obj);\n});\nmsg.devices = devices_list;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 770,
+        "y": 160,
+        "wires": [
+            [
+                "bdb2d18f63acff66"
+            ]
+        ]
+    },
+    {
+        "id": "0e1fc607892119fc",
+        "type": "switch",
+        "z": "2e87f2d8cbe74afe",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 590,
+        "y": 180,
+        "wires": [
+            [
+                "f8de3e4430b91b06"
+            ],
+            [
+                "264a1d0638c82ceb"
+            ]
+        ]
+    },
+    {
+        "id": "88808435021390e8",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_room_devices_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 960,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "32083a872b7fb114",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_room_devices_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1180,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "bdb2d18f63acff66",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": {\t        \"devices\": msg.devices\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 160,
+        "wires": [
+            [
+                "32083a872b7fb114"
+            ]
+        ]
+    },
+    {
+        "id": "70370dfea1b8972f",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 180,
+        "wires": [
+            [
+                "0e1fc607892119fc"
+            ]
+        ]
+    },
+    {
+        "id": "264a1d0638c82ceb",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 200,
+        "wires": [
+            [
+                "88808435021390e8",
+                "9b99b841f325703c"
+            ]
+        ]
+    },
+    {
+        "id": "3af23b9a34d175a6",
+        "type": "http in",
+        "z": "2e87f2d8cbe74afe",
+        "name": "configure_device_request",
+        "url": "${CONFIGURE_DEVICE_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 560,
+        "wires": [
+            [
+                "70ebeef5a937ce62",
+                "efef5934ee6d7153"
+            ]
+        ]
+    },
+    {
+        "id": "70ebeef5a937ce62",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 560,
+        "wires": [
+            [
+                "dcc69ce7e2159e44"
+            ]
+        ]
+    },
+    {
+        "id": "dcc69ce7e2159e44",
+        "type": "switch",
+        "z": "2e87f2d8cbe74afe",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 560,
+        "wires": [
+            [
+                "ae58075102dae45c"
+            ],
+            [
+                "f8f531feb4ae86fc"
+            ]
+        ]
+    },
+    {
+        "id": "ae58075102dae45c",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 420,
+        "wires": [
+            [
+                "12789d0cecc54c7c",
+                "3988e85be59e3f78"
+            ]
+        ]
+    },
+    {
+        "id": "12789d0cecc54c7c",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "configure_device_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 980,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f8f531feb4ae86fc",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "is_device_exists",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.req.body.device_name ?? '';\nconst device_exist = device_name in system_devices;\n\nmsg.device_exist = device_exist;\nif (!device_exist) {\n    msg.status_code = 404;\n    msg.service_msg = 'Device Not Found';\n} else {\n    msg.device_name = device_name;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 620,
+        "wires": [
+            [
+                "b359c9dc8a755e82"
+            ]
+        ]
+    },
+    {
+        "id": "b359c9dc8a755e82",
+        "type": "switch",
+        "z": "2e87f2d8cbe74afe",
+        "name": "",
+        "property": "device_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 950,
+        "y": 620,
+        "wires": [
+            [
+                "bf7579f8922cfc67"
+            ],
+            [
+                "ad9c1aa0755b4fa8"
+            ]
+        ]
+    },
+    {
+        "id": "ad9c1aa0755b4fa8",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "is_config_exists",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.req.body.device_name;\nconst target_device = system_devices[device_name];\nconst device_configs = Object.keys(target_device.config);\nconst config_param = Object.keys(msg.req.body).find(x => x != 'device_name');\nconst config_exist = device_configs.includes(config_param);\nmsg.config_exist = config_exist;\nif (!config_exist) {\n    msg.status_code = 404;\n    msg.service_msg = 'Config Not Found';\n} else {\n    msg.config_param = config_param;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 680,
+        "wires": [
+            [
+                "f3198bf8d3675089"
+            ]
+        ]
+    },
+    {
+        "id": "bf7579f8922cfc67",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1120,
+        "y": 520,
+        "wires": [
+            [
+                "bde6f5ba3efbe8c8",
+                "8c31c29a87cf2dea"
+            ]
+        ]
+    },
+    {
+        "id": "bde6f5ba3efbe8c8",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "configure_device_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1340,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "f3198bf8d3675089",
+        "type": "switch",
+        "z": "2e87f2d8cbe74afe",
+        "name": "",
+        "property": "config_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1290,
+        "y": 680,
+        "wires": [
+            [
+                "de3aac0b13d4cefe"
+            ],
+            [
+                "91ce44c5de847cf1"
+            ]
+        ]
+    },
+    {
+        "id": "de3aac0b13d4cefe",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1440,
+        "y": 620,
+        "wires": [
+            [
+                "81e4cd156e358eab",
+                "70d56989f3a7ae8f"
+            ]
+        ]
+    },
+    {
+        "id": "81e4cd156e358eab",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "configure_device_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1660,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "0506392f46c35fdf",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"msg\": \"OK\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1660,
+        "y": 720,
+        "wires": [
+            [
+                "b9f702a71ad4e909"
+            ]
+        ]
+    },
+    {
+        "id": "b9f702a71ad4e909",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "configure_device_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1880,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "91ce44c5de847cf1",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_device_config",
+        "func": "const { device_name, config_param } = msg;\nconst system_devices = global.get('devices');\nsystem_devices[device_name].config[config_param] = Number(msg.req.body[config_param]);\nglobal.set('devices', system_devices);\nmsg.payload = { devices: system_devices };\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1470,
+        "y": 720,
+        "wires": [
+            [
+                "0506392f46c35fdf",
+                "dafc8969007f2ce1"
+            ]
+        ]
+    },
+    {
+        "id": "f19eced070ee96a5",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9b99b841f325703c",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 920,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "efef5934ee6d7153",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3988e85be59e3f78",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8c31c29a87cf2dea",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "70d56989f3a7ae8f",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1620,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dafc8969007f2ce1",
+        "type": "file",
+        "z": "2e87f2d8cbe74afe",
+        "name": "write_system_devices",
+        "filename": "${USER_DATA_DIR}/devices.json",
+        "filenameType": "env",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1700,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e64dccfabd2c03e1",
+        "type": "switch",
+        "z": "2e87f2d8cbe74afe",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 530,
+        "y": 920,
+        "wires": [
+            [
+                "e134c357b5c03106"
+            ],
+            [
+                "92ee3f5267772041"
+            ]
+        ]
+    },
+    {
+        "id": "987ad7bd5a79730a",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 920,
+        "wires": [
+            [
+                "e64dccfabd2c03e1"
+            ]
+        ]
+    },
+    {
+        "id": "78dbe5426ec1c0dc",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 960,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "90854c81f0abf662",
+        "type": "http in",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_device_info",
+        "url": "${GET_DEVICE_INFO_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 160,
+        "y": 920,
+        "wires": [
+            [
+                "987ad7bd5a79730a",
+                "78dbe5426ec1c0dc"
+            ]
+        ]
+    },
+    {
+        "id": "2bd307fc05357a17",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 860,
+        "y": 920,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "117b47190a8fb2c0",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_device_info_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 890,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "e134c357b5c03106",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 680,
+        "y": 880,
+        "wires": [
+            [
+                "117b47190a8fb2c0",
+                "2bd307fc05357a17"
+            ]
+        ]
+    },
+    {
+        "id": "92ee3f5267772041",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "is_device_exists",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.req.body.device_name ?? '';\nconst device_exist = device_name in system_devices;\n\nmsg.device_exist = device_exist;\nif (!device_exist) {\n    msg.status_code = 404;\n    msg.service_msg = 'Device Not Found';\n} else {\n    msg.device_name = device_name;\n}\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 980,
+        "wires": [
+            [
+                "93c65d5e99180e5f"
+            ]
+        ]
+    },
+    {
+        "id": "93c65d5e99180e5f",
+        "type": "switch",
+        "z": "2e87f2d8cbe74afe",
+        "name": "",
+        "property": "device_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 870,
+        "y": 980,
+        "wires": [
+            [
+                "8618a5056632f427"
+            ],
+            [
+                "82c7e6eb9a58bf1f"
+            ]
+        ]
+    },
+    {
+        "id": "8618a5056632f427",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.service_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1020,
+        "y": 940,
+        "wires": [
+            [
+                "3afeeeca20cde5bb",
+                "e6d0dba14f283b45"
+            ]
+        ]
+    },
+    {
+        "id": "3afeeeca20cde5bb",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e6d0dba14f283b45",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_device_info_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1230,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "82c7e6eb9a58bf1f",
+        "type": "function",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_device_info",
+        "func": "const system_devices = global.get('devices');\nmsg.device_info = system_devices[msg.device_name];\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1040,
+        "y": 1020,
+        "wires": [
+            [
+                "88ca619ec851a4fe"
+            ]
+        ]
+    },
+    {
+        "id": "88ca619ec851a4fe",
+        "type": "change",
+        "z": "2e87f2d8cbe74afe",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": {\t        \"device\": msg.device_info\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1220,
+        "y": 1020,
+        "wires": [
+            [
+                "b9e44626a58a0373"
+            ]
+        ]
+    },
+    {
+        "id": "b9e44626a58a0373",
+        "type": "http response",
+        "z": "2e87f2d8cbe74afe",
+        "name": "get_device_info_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1430,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "a50596aa1dd24b79",
+        "type": "mqtt in",
+        "z": "4ab863cc96f52882",
+        "name": "scenes_trigger",
+        "topic": "scenes/#",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "0a26721825e26c55",
+                "c42444952a85f344"
+            ]
+        ]
+    },
+    {
+        "id": "0a26721825e26c55",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c42444952a85f344",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "TRIGGER",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 350,
+        "y": 160,
+        "wires": [
+            [
+                "766f20e3ba9de3db"
+            ]
+        ]
+    },
+    {
+        "id": "bc48465b9501a1ca",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "exec_scene",
+        "func": "/**\n * @typedef {Object} DeviceAction\n * @property {string} device_name\n * @property {string} device_pref\n * @property {string} payload\n */\n\n/**\n * @type {DeviceAction[]}\n */\nconst scene_actions = msg.scene_info.actions;\n\nscene_actions.forEach(action => {\n    const mqtt_msg_topic = `command/${action.device_name}/${action.device_pref}`;\n    node.send({\n        scene_done: false,\n        topic: mqtt_msg_topic,\n        payload: action.payload,\n    });\n});\n\nmsg.scene_done = true;\n// consturct notif msg\nmsg.payload = {\n    msg_lvl: 'info',\n    msg_body: `Scene Executed: ${msg.scene_info.scene_name_fixed_symbol}`,\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 870,
+        "y": 200,
+        "wires": [
+            [
+                "497d981ab3265511",
+                "89ba4cb164f96900"
+            ]
+        ]
+    },
+    {
+        "id": "cb30f68a168196ce",
+        "type": "mqtt out",
+        "z": "4ab863cc96f52882",
+        "name": "client_notif",
+        "topic": "telem/client/notif",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 1210,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "89ba4cb164f96900",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1050,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f9c3b953607d0433",
+        "type": "mqtt out",
+        "z": "4ab863cc96f52882",
+        "name": "exec_device_action",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 1230,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "497d981ab3265511",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "scene_done",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 1030,
+        "y": 200,
+        "wires": [
+            [
+                "f9c3b953607d0433"
+            ],
+            [
+                "cb30f68a168196ce"
+            ]
+        ]
+    },
+    {
+        "id": "75412c6acd5d1f8c",
+        "type": "http in",
+        "z": "4ab863cc96f52882",
+        "name": "create_scene_request",
+        "url": "${CREATE_SCENE_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 700,
+        "wires": [
+            [
+                "a3f1884bffea3aa1",
+                "5caf2ea050b84548"
+            ]
+        ]
+    },
+    {
+        "id": "e4a761ded666cf84",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "create_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 930,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "216e838e5818dc8f",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ce580741d3dff817",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 660,
+        "wires": [
+            [
+                "e4a761ded666cf84",
+                "216e838e5818dc8f"
+            ]
+        ]
+    },
+    {
+        "id": "d7740fe4b4d385b4",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 700,
+        "wires": [
+            [
+                "ce580741d3dff817"
+            ],
+            [
+                "23215ff390fc2a50"
+            ]
+        ]
+    },
+    {
+        "id": "a3f1884bffea3aa1",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 700,
+        "wires": [
+            [
+                "d7740fe4b4d385b4"
+            ]
+        ]
+    },
+    {
+        "id": "5caf2ea050b84548",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "23215ff390fc2a50",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "create_scene",
+        "func": "const scenes = global.get('scenes');\nconst last_id = global.get('scene_last_id');\nconst scene_id = last_id + 1;\nconst scene_name = `scene_${scene_id}`;\nconst actions = msg.req.body.actions;\nconst scene_name_fixed_symbol = msg.req.body.scene_name_fixed_symbol;\n\nscenes[scene_name] = { scene_id, scene_name, scene_name_fixed_symbol, actions};\n\nglobal.set('scenes', scenes);\nglobal.set('scene_last_id', scene_id);\nmsg.payload = {\n    scenes: scenes,\n    last_id: scene_id,\n};\nmsg.scene_id = scene_id;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 740,
+        "wires": [
+            [
+                "fd3410153ebb0542"
+            ]
+        ]
+    },
+    {
+        "id": "fd3410153ebb0542",
+        "type": "json",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 910,
+        "y": 740,
+        "wires": [
+            [
+                "1a248ea6fc5fb6eb",
+                "94f7231dbc5f83e5"
+            ]
+        ]
+    },
+    {
+        "id": "94f7231dbc5f83e5",
+        "type": "file",
+        "z": "4ab863cc96f52882",
+        "name": "save_scenes",
+        "filename": "${USER_DATA_DIR}/scenes.json",
+        "filenameType": "env",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1070,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a248ea6fc5fb6eb",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": { \"scene_id\": msg.scene_id },\t    \"msg\": \"OK\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1060,
+        "y": 740,
+        "wires": [
+            [
+                "dff99ceacabc5f99"
+            ]
+        ]
+    },
+    {
+        "id": "dff99ceacabc5f99",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "create_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1270,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "b47666430f6598fa",
+        "type": "http in",
+        "z": "4ab863cc96f52882",
+        "name": "get_scenes_request",
+        "url": "${GET_SCENES_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 420,
+        "wires": [
+            [
+                "7af94342314c7b10",
+                "32405f0b824674c6"
+            ]
+        ]
+    },
+    {
+        "id": "7af94342314c7b10",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 420,
+        "wires": [
+            [
+                "091109ad6e8b43e5"
+            ]
+        ]
+    },
+    {
+        "id": "32405f0b824674c6",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "091109ad6e8b43e5",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 420,
+        "wires": [
+            [
+                "10015416f341f2e5"
+            ],
+            [
+                "73df9ca993453a0a"
+            ]
+        ]
+    },
+    {
+        "id": "86bbe6248c385c9e",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "get_scenes_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 920,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "ca03a93dde9e1e5d",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10015416f341f2e5",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 380,
+        "wires": [
+            [
+                "86bbe6248c385c9e",
+                "ca03a93dde9e1e5d"
+            ]
+        ]
+    },
+    {
+        "id": "00246bce21b560d5",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "get_scenes_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1100,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "aeba5b1bf3a7fdc3",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"data\": {\t        \"scenes\": msg.scenes\t    }\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 460,
+        "wires": [
+            [
+                "00246bce21b560d5"
+            ]
+        ]
+    },
+    {
+        "id": "73df9ca993453a0a",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "get_scenes",
+        "func": "const scenes = global.get('scenes');\nmsg.scenes = Object.values(scenes);\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 460,
+        "wires": [
+            [
+                "aeba5b1bf3a7fdc3"
+            ]
+        ]
+    },
+    {
+        "id": "fda2be703439ee4f",
+        "type": "http in",
+        "z": "4ab863cc96f52882",
+        "name": "update_scene_request",
+        "url": "${UPDATE_SCENE_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 980,
+        "wires": [
+            [
+                "fb2e7bbcf4e9ea97",
+                "f21ef5d631dd37f7"
+            ]
+        ]
+    },
+    {
+        "id": "77aaba8516b7996b",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "update_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 930,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "99192738068c0ad4",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7e4c71c0293f2a89",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 720,
+        "y": 940,
+        "wires": [
+            [
+                "77aaba8516b7996b",
+                "99192738068c0ad4"
+            ]
+        ]
+    },
+    {
+        "id": "3c12b8ee5ae106b5",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 570,
+        "y": 980,
+        "wires": [
+            [
+                "7e4c71c0293f2a89"
+            ],
+            [
+                "d7aaa469db74dcca"
+            ]
+        ]
+    },
+    {
+        "id": "fb2e7bbcf4e9ea97",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 980,
+        "wires": [
+            [
+                "3c12b8ee5ae106b5"
+            ]
+        ]
+    },
+    {
+        "id": "f21ef5d631dd37f7",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1020,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "25492ff63460340c",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "update_scene",
+        "func": "const scenes = global.get('scenes');\nconst last_id = global.get('scene_last_id');\nconst scene_obj = msg.req.body;\n\nscenes[scene_obj.scene_name] = scene_obj;\n\nglobal.set('scenes', scenes);\nmsg.payload = { scenes, last_id };\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 1100,
+        "wires": [
+            [
+                "6015baa92212c9af"
+            ]
+        ]
+    },
+    {
+        "id": "6015baa92212c9af",
+        "type": "json",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1250,
+        "y": 1100,
+        "wires": [
+            [
+                "71231d7949d235ac",
+                "15ef3a94d4aabb30"
+            ]
+        ]
+    },
+    {
+        "id": "15ef3a94d4aabb30",
+        "type": "file",
+        "z": "4ab863cc96f52882",
+        "name": "save_scenes",
+        "filename": "${USER_DATA_DIR}/scenes.json",
+        "filenameType": "env",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1410,
+        "y": 1140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "71231d7949d235ac",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"msg\": \"OK\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1400,
+        "y": 1100,
+        "wires": [
+            [
+                "630295adeb83236d"
+            ]
+        ]
+    },
+    {
+        "id": "630295adeb83236d",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "update_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1610,
+        "y": 1100,
+        "wires": []
+    },
+    {
+        "id": "d7aaa469db74dcca",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "is_scene_exist",
+        "func": "const scenes = global.get('scenes');\nconst scene_exist = msg.req.body.scene_name in scenes;\nmsg.scene_exist = scene_exist;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 1060,
+        "wires": [
+            [
+                "3f4f8a27ea6832fe"
+            ]
+        ]
+    },
+    {
+        "id": "3f4f8a27ea6832fe",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "scene_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 910,
+        "y": 1060,
+        "wires": [
+            [
+                "a05872f5dfc1a558"
+            ],
+            [
+                "25492ff63460340c"
+            ]
+        ]
+    },
+    {
+        "id": "10f549cef6f1fc50",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 1060,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a05872f5dfc1a558",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_404",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "404",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": \"Scene Not Found\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1060,
+        "y": 1020,
+        "wires": [
+            [
+                "10f549cef6f1fc50",
+                "ce57ac61ee775a24"
+            ]
+        ]
+    },
+    {
+        "id": "ce57ac61ee775a24",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "update_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1270,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "5396265f2f7487d1",
+        "type": "http in",
+        "z": "4ab863cc96f52882",
+        "name": "delete_scene_request",
+        "url": "${DELETE_SCENE_ROUTE}",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 220,
+        "y": 1420,
+        "wires": [
+            [
+                "67a5c6ef8e9f20b9",
+                "f0ad54bfa5838519"
+            ]
+        ]
+    },
+    {
+        "id": "47ba471eeabb7de3",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "valid_token",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 610,
+        "y": 1420,
+        "wires": [
+            [
+                "ba2bfc05db58f21a"
+            ],
+            [
+                "73bb65f4be8b43c4"
+            ]
+        ]
+    },
+    {
+        "id": "67a5c6ef8e9f20b9",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "verify_jwt_token",
+        "func": "const { jwt } = context.global;\nconst { security } = context.global;\n\nconst allowed_roles = ['ADMIN', 'USER'];\nconst jwt_key = env.get('JWT_KEY');\nconst service_response = security.authorize_api(allowed_roles, msg.req.headers.authorization, jwt_key, jwt);\n\nmsg.valid_token = service_response.success;\nmsg.status_code = service_response.status_code;\nif (service_response.success)\n    msg.user = service_response.data.token_claims;\nelse\n    msg.jwt_msg = service_response.msg;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1420,
+        "wires": [
+            [
+                "47ba471eeabb7de3"
+            ]
+        ]
+    },
+    {
+        "id": "f0ad54bfa5838519",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_in_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.req.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.http_in_log(msg.req);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 440,
+        "y": 1460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "43a78b40e8c7736e",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "delete_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 970,
+        "y": 1380,
+        "wires": []
+    },
+    {
+        "id": "587e0737c961af43",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 940,
+        "y": 1420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ba2bfc05db58f21a",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_40X",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "status_code",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": msg.jwt_msg\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 760,
+        "y": 1380,
+        "wires": [
+            [
+                "43a78b40e8c7736e",
+                "587e0737c961af43"
+            ]
+        ]
+    },
+    {
+        "id": "73bb65f4be8b43c4",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "is_scene_exist",
+        "func": "const scenes = global.get('scenes');\nconst scene_exist = msg.req.body.scene_name in scenes;\nmsg.scene_exist = scene_exist;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1480,
+        "wires": [
+            [
+                "53a9e09cfcfc4302"
+            ]
+        ]
+    },
+    {
+        "id": "53a9e09cfcfc4302",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "scene_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 950,
+        "y": 1480,
+        "wires": [
+            [
+                "c7bad115097b3ecb"
+            ],
+            [
+                "70dc1740ffaa2b09"
+            ]
+        ]
+    },
+    {
+        "id": "4c77162aa66877ac",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "http_out_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'ERROR',\n    module_id: node.id,\n};\ncust_logger.http_out_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1280,
+        "y": 1480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7bad115097b3ecb",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_404",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "404",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": false,\t    \"msg\": \"Scene Not Found\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 1440,
+        "wires": [
+            [
+                "4c77162aa66877ac",
+                "5f46d13f93e1a6a6"
+            ]
+        ]
+    },
+    {
+        "id": "5f46d13f93e1a6a6",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "delete_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1310,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "f4bed28665b0c129",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "set_200",
+        "rules": [
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "200",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "headers.content-type",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\t    \"success\": true,\t    \"msg\": \"OK\"\t}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1420,
+        "y": 1520,
+        "wires": [
+            [
+                "f1daf8585c5b5b60"
+            ]
+        ]
+    },
+    {
+        "id": "66bde3c822a9b2ed",
+        "type": "file",
+        "z": "4ab863cc96f52882",
+        "name": "save_scenes",
+        "filename": "${USER_DATA_DIR}/scenes.json",
+        "filenameType": "env",
+        "appendNewline": false,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 1430,
+        "y": 1560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b66736fb90279501",
+        "type": "json",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 1270,
+        "y": 1520,
+        "wires": [
+            [
+                "f4bed28665b0c129",
+                "66bde3c822a9b2ed"
+            ]
+        ]
+    },
+    {
+        "id": "70dc1740ffaa2b09",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "delete_scene",
+        "func": "const scenes = global.get('scenes');\nconst last_id = global.get('scene_last_id');\nconst scene_name = msg.req.body.scene_name;\n\ndelete scenes[scene_name];\n\nglobal.set('scenes', scenes);\nmsg.payload = { scenes, last_id };\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1110,
+        "y": 1520,
+        "wires": [
+            [
+                "b66736fb90279501"
+            ]
+        ]
+    },
+    {
+        "id": "f1daf8585c5b5b60",
+        "type": "http response",
+        "z": "4ab863cc96f52882",
+        "name": "delete_scene_response",
+        "statusCode": "",
+        "headers": {},
+        "x": 1630,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "766f20e3ba9de3db",
+        "type": "function",
+        "z": "4ab863cc96f52882",
+        "name": "get_scene_if_exist",
+        "func": "const scenes = global.get('scenes');\nconst scene_name = msg.topic.split('/')[1];\nconst scene_exist = scene_name in scenes;\n\nif (scene_exist)\n    msg.scene_info = scenes[scene_name];\n\nmsg.scene_exist = scene_exist;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 160,
+        "wires": [
+            [
+                "e67b3576519ef892"
+            ]
+        ]
+    },
+    {
+        "id": "e67b3576519ef892",
+        "type": "switch",
+        "z": "4ab863cc96f52882",
+        "name": "",
+        "property": "scene_exist",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "false"
+            },
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 160,
+        "wires": [
+            [
+                "d2d89a9954289baa"
+            ],
+            [
+                "bc48465b9501a1ca"
+            ]
+        ]
+    },
+    {
+        "id": "5bb937220c6d3b91",
+        "type": "mqtt out",
+        "z": "4ab863cc96f52882",
+        "name": "client_notif",
+        "topic": "telem/client/notif",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 1110,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d2d89a9954289baa",
+        "type": "change",
+        "z": "4ab863cc96f52882",
+        "name": "scene_not_found_msg",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"msg_lvl\":\"error\",\"msg_body\":\"Scene Not Found\"}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 120,
+        "wires": [
+            [
+                "5bb937220c6d3b91"
+            ]
+        ]
+    },
+    {
+        "id": "f2a422cfdf54dcbd",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "motion_sensor_8",
+        "topic": "telem/motion_sensor_8/notif",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "9c11fb5f057e3a11",
+                "cbb0f915a88c4280"
+            ]
+        ]
+    },
+    {
+        "id": "3f3aafe32365ebca",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "load_device_config",
+        "func": "const device_id = msg.topic.split('/')[1];\nconst system_devices = global.get('devices');\nmsg.device_config = system_devices[device_id].config;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 730,
+        "y": 220,
+        "wires": [
+            [
+                "65366ba3a6a32b94",
+                "345e4e2351f19b6f"
+            ]
+        ]
+    },
+    {
+        "id": "ea62de3df697a144",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "publish_msg",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 1390,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "6ec097b179920c9f",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "client_notif",
+        "topic": "telem/client/notif",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 1310,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "41e37a667a096ce2",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "MOTION",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 220,
+        "wires": [
+            [
+                "3f3aafe32365ebca"
+            ]
+        ]
+    },
+    {
+        "id": "8bf68051d6e48f8e",
+        "type": "change",
+        "z": "00d1bba548b033c7",
+        "name": "main_switch_0_power_1_ON",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "command/main_switch_0/power_1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1160,
+        "y": 280,
+        "wires": [
+            [
+                "ea62de3df697a144",
+                "7c74e5572712aea5"
+            ]
+        ]
+    },
+    {
+        "id": "9c11fb5f057e3a11",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "inject_device_info",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.topic.split('/')[1];\nconst room_name = system_devices[device_name].room_name;\nmsg.room_name = room_name;\nmsg.device_name = device_name;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 220,
+        "wires": [
+            [
+                "41e37a667a096ce2"
+            ]
+        ]
+    },
+    {
+        "id": "dce3d2a2c67d87e7",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1310,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cbb0f915a88c4280",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7c74e5572712aea5",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1390,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "87d2e7deeaf8d694",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "if_up_link",
+        "property": "up_link",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 1100,
+        "y": 140,
+        "wires": [
+            [
+                "b62d3d6375c47819"
+            ]
+        ]
+    },
+    {
+        "id": "f576f3bc6c87141b",
+        "type": "e-mail",
+        "z": "00d1bba548b033c7",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "elshareslam@gmail.com",
+        "dname": "send_email",
+        "x": 1470,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "b62d3d6375c47819",
+        "type": "change",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_email",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\"Device: \" & msg.room_name & \"-\" & msg.device_name & \"\\n\" & \"Message: Motion Detected\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Security Motion Sensor",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1280,
+        "y": 140,
+        "wires": [
+            [
+                "f576f3bc6c87141b"
+            ]
+        ]
+    },
+    {
+        "id": "3c4ab8769fb6b770",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "flood_sensor_7",
+        "topic": "telem/flood_sensor_7/notif",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 480,
+        "wires": [
+            [
+                "11bf37da6f01399a",
+                "2f5c04e6d5b4270b"
+            ]
+        ]
+    },
+    {
+        "id": "11bf37da6f01399a",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "inject_device_info",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.topic.split('/')[1];\nconst room_name = system_devices[device_name].room_name;\nmsg.room_name = room_name;\nmsg.device_name = device_name;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 480,
+        "wires": [
+            [
+                "d2cf0b8712970682"
+            ]
+        ]
+    },
+    {
+        "id": "2f5c04e6d5b4270b",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d2cf0b8712970682",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "FLOOD",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 480,
+        "wires": [
+            [
+                "5ca6c7711d848d72",
+                "684401d863364260"
+            ]
+        ]
+    },
+    {
+        "id": "043cd98beffd447d",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "client_notif",
+        "topic": "telem/client/notif",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 930,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "80a5d180fe6366eb",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5ca6c7711d848d72",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "if_up_link",
+        "property": "up_link",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 720,
+        "y": 480,
+        "wires": [
+            [
+                "929746bcb36bc57b"
+            ]
+        ]
+    },
+    {
+        "id": "c24eabf911991889",
+        "type": "e-mail",
+        "z": "00d1bba548b033c7",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "elshareslam@gmail.com",
+        "dname": "send_email",
+        "x": 1090,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "929746bcb36bc57b",
+        "type": "change",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_email",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\"Device: \" & msg.room_name & \"-\" & msg.device_name & \"\\n\" & \"Message: Flood Detected\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Flood Sensor",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 480,
+        "wires": [
+            [
+                "c24eabf911991889"
+            ]
+        ]
+    },
+    {
+        "id": "a34c1f9b5c0a8cef",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "security_lock_6",
+        "topic": "telem/security_lock_6/notif",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "2a02e12aabe646ae",
+                "49b590ed23927a93"
+            ]
+        ]
+    },
+    {
+        "id": "49b590ed23927a93",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "inject_device_info",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.topic.split('/')[1];\nconst room_name = system_devices[device_name].room_name;\nmsg.room_name = room_name;\nmsg.device_name = device_name;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 700,
+        "wires": [
+            [
+                "c3c0ede48f2c37e3"
+            ]
+        ]
+    },
+    {
+        "id": "2a02e12aabe646ae",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c3c0ede48f2c37e3",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "UNLOCKED",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 550,
+        "y": 700,
+        "wires": [
+            [
+                "91f6ea9385ec76dc",
+                "9fc53b88c54f2e5e"
+            ]
+        ]
+    },
+    {
+        "id": "69a3525083d8e873",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "client_notif",
+        "topic": "telem/client/notif",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 930,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "63240d342773f74d",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 930,
+        "y": 820,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "91f6ea9385ec76dc",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "if_up_link",
+        "property": "up_link",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 720,
+        "y": 700,
+        "wires": [
+            [
+                "1a166fffa0424e70"
+            ]
+        ]
+    },
+    {
+        "id": "db03441ddc07acd2",
+        "type": "e-mail",
+        "z": "00d1bba548b033c7",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "elshareslam@gmail.com",
+        "dname": "send_email",
+        "x": 1090,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "1a166fffa0424e70",
+        "type": "change",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_email",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\"Device: \" & msg.room_name & \"-\" & msg.device_name & \"\\n\" & \"Message: Security Lock Unlocked\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "Security Lock",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 900,
+        "y": 700,
+        "wires": [
+            [
+                "db03441ddc07acd2"
+            ]
+        ]
+    },
+    {
+        "id": "6f2b3a70f04b2110",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "ai_agent_12",
+        "topic": "telem/ai_agent_12/notif",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 150,
+        "y": 940,
+        "wires": [
+            [
+                "b5caaf33155746eb",
+                "16e3bdb3247ee944"
+            ]
+        ]
+    },
+    {
+        "id": "b5caaf33155746eb",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "inject_device_info",
+        "func": "const system_devices = global.get('devices');\nconst device_name = msg.topic.split('/')[1];\nconst room_name = system_devices[device_name].room_name;\nmsg.room_name = room_name;\nmsg.device_name = device_name;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 940,
+        "wires": [
+            [
+                "95de40221587bdaa"
+            ]
+        ]
+    },
+    {
+        "id": "16e3bdb3247ee944",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 980,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "95de40221587bdaa",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "PERSON_DETECTED",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 530,
+        "y": 940,
+        "wires": [
+            [
+                "c705a1489e6622f5",
+                "c6c9f73a38fa686d"
+            ]
+        ]
+    },
+    {
+        "id": "8f8f6109f2828f7f",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "client_notif",
+        "topic": "telem/client/notif",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 910,
+        "y": 980,
+        "wires": []
+    },
+    {
+        "id": "b1d306536e7cfbba",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 910,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c705a1489e6622f5",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "if_up_link",
+        "property": "up_link",
+        "propertyType": "global",
+        "rules": [
+            {
+                "t": "true"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 700,
+        "y": 940,
+        "wires": [
+            [
+                "eaa68109e6729caa"
+            ]
+        ]
+    },
+    {
+        "id": "eaa68109e6729caa",
+        "type": "change",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_email",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "\"Device: \" & msg.room_name & \"-\" & msg.device_name & \"\\n\" & \"Message: Person Detected\"",
+                "tot": "jsonata"
+            },
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "AI Agent",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 940,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2a6cc39c37a31ae4",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_msg",
+        "func": "msg.payload = {\n    room: msg.room_name,\n    device: msg.device_name,\n    msg_lvl: 'warn',\n    msg_body: 'Motion Detected',\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1120,
+        "y": 180,
+        "wires": [
+            [
+                "6ec097b179920c9f",
+                "dce3d2a2c67d87e7"
+            ]
+        ]
+    },
+    {
+        "id": "684401d863364260",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_msg",
+        "func": "msg.payload = {\n    room: msg.room_name,\n    device: msg.device_name,\n    msg_lvl: 'warn',\n    msg_body: 'Flood Detected',\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 540,
+        "wires": [
+            [
+                "043cd98beffd447d",
+                "80a5d180fe6366eb"
+            ]
+        ]
+    },
+    {
+        "id": "9fc53b88c54f2e5e",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_msg",
+        "func": "msg.payload = {\n    room: msg.room_name,\n    device: msg.device_name,\n    msg_lvl: 'warn',\n    msg_body: 'Lock Opened',\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 760,
+        "wires": [
+            [
+                "69a3525083d8e873",
+                "63240d342773f74d"
+            ]
+        ]
+    },
+    {
+        "id": "c6c9f73a38fa686d",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "sec_notif_msg",
+        "func": "msg.payload = {\n    room: msg.room_name,\n    device: msg.device_name,\n    msg_lvl: 'warn',\n    msg_body: 'Person Detected',\n};\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 980,
+        "wires": [
+            [
+                "8f8f6109f2828f7f",
+                "b1d306536e7cfbba"
+            ]
+        ]
+    },
+    {
+        "id": "0946df384da8edf6",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "sys_clients",
+        "topic": "$SYS/broker/clients/connected",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 140,
+        "y": 1300,
+        "wires": [
+            [
+                "eb9360b7dc6164e6",
+                "327f8ba753da847d"
+            ]
+        ]
+    },
+    {
+        "id": "30107e24923cdee2",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_scan",
+        "topic": "telem/broadcast",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 570,
+        "y": 1260,
+        "wires": []
+    },
+    {
+        "id": "730185b9cff1924b",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "sys_clients_lwt",
+        "topic": "telem/+/CLIENT_LWT",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 1480,
+        "wires": [
+            [
+                "e55c14afdd021373"
+            ]
+        ]
+    },
+    {
+        "id": "e55c14afdd021373",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ONLINE",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 1480,
+        "wires": [
+            [
+                "ad139eee046865d7"
+            ]
+        ]
+    },
+    {
+        "id": "ad139eee046865d7",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "get_client_user_info",
+        "func": "const mqtt_client_id = msg.topic.split('/')[1];\nconst [_, user_type, username] = mqtt_client_id.split('.');\n\nmsg.payload = { user_type, username };\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 1480,
+        "wires": [
+            [
+                "34a09f126b35c9fb"
+            ]
+        ]
+    },
+    {
+        "id": "34a09f126b35c9fb",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "update_user_connection_state",
+        "func": "const users = global.get('users');\n\nif (!(msg.payload.username in users)) {\n    msg.ucs_updated = 0;\n    msg.users = users;\n    return msg;\n}\n\nusers[msg.payload.username].is_online = true;\nglobal.set('users', users);\nmsg.ucs_updated = 1;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cd20b98e63354582",
+        "type": "inject",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1620,
+        "wires": [
+            [
+                "734069648ceb608a"
+            ]
+        ]
+    },
+    {
+        "id": "734069648ceb608a",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "connected_clients",
+        "func": "const users = global.get('users');\nconst user_objs = Object.values(users);\nlet is_any_online = false;\nlet conn_state_map = {};\n\nuser_objs.forEach(user_obj => {\n    if (user_obj.is_online)\n        is_any_online = true;\n\n    const { username, is_online } = user_obj;\n    conn_state_map[username] = is_online;\n});\n\nmsg.is_any_online = is_any_online;\nmsg.payload = conn_state_map;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1620,
+        "wires": [
+            [
+                "5e068c3ef61074e6"
+            ]
+        ]
+    },
+    {
+        "id": "5e068c3ef61074e6",
+        "type": "debug",
+        "z": "00d1bba548b033c7",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 1620,
+        "wires": []
+    },
+    {
+        "id": "eb9360b7dc6164e6",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "clients_scan",
+        "func": "const users = global.get('users');\nconst user_objs = Object.values(users);\nuser_objs.forEach(user_obj => {\n    user_obj.is_online = false;    \n});\nglobal.set('users', users);\nmsg.payload = 'CLIENTS_SCAN';\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 1260,
+        "wires": [
+            [
+                "30107e24923cdee2"
+            ]
+        ]
+    },
+    {
+        "id": "327f8ba753da847d",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "devices_scan",
+        "func": "const devices = global.get('devices');\nconst device_objs = Object.values(devices);\ndevice_objs.forEach(device_obj => {\n    if (device_obj.link_type === 'LIVE')\n        device_obj.is_online = false;   \n});\nglobal.set('devices', devices);\nmsg.payload = 'DEVICES_SCAN';\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 1340,
+        "wires": [
+            [
+                "2d63fbbb958e863a",
+                "30bd6c13e25b7f1e"
+            ]
+        ]
+    },
+    {
+        "id": "2d63fbbb958e863a",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "mqtt_scan",
+        "topic": "telem/broadcast",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 570,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "30bd6c13e25b7f1e",
+        "type": "delay",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "1",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 560,
+        "y": 1400,
+        "wires": [
+            [
+                "0c079edab3647977"
+            ]
+        ]
+    },
+    {
+        "id": "0c079edab3647977",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "disconnect_non_active_devices",
+        "func": "const devices = global.get('devices');\nconst device_objs = Object.values(devices);\ndevice_objs.forEach(device_obj => {\n    if (device_obj.link_type !== 'LIVE')\n        return;\n    \n    if (!device_obj.is_online)\n        node.send({\n            topic: `telem/${device_obj.device_name}/DEVICE_LWT`,\n            payload: 'OFFLINE',\n        });\n});\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 790,
+        "y": 1400,
+        "wires": [
+            [
+                "39f8a43596decef6"
+            ]
+        ]
+    },
+    {
+        "id": "39f8a43596decef6",
+        "type": "mqtt out",
+        "z": "00d1bba548b033c7",
+        "name": "publish_msg",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 1030,
+        "y": 1400,
+        "wires": []
+    },
+    {
+        "id": "5e4422b8e88427e9",
+        "type": "mqtt in",
+        "z": "00d1bba548b033c7",
+        "name": "sys_devices_lwt",
+        "topic": "telem/+/DEVICE_LWT",
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "3222465e6f745686",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 1540,
+        "wires": [
+            [
+                "85508c74e5e900fd"
+            ]
+        ]
+    },
+    {
+        "id": "85508c74e5e900fd",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "ONLINE",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 1540,
+        "wires": [
+            [
+                "15ecffae3850b8c4"
+            ]
+        ]
+    },
+    {
+        "id": "15ecffae3850b8c4",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "update_device_connection_state",
+        "func": "const device_name = msg.topic.split('/')[1];\nconst devices = global.get('devices');\n\nif (!(device_name in devices)) {\n    msg.device_name = device_name;\n    msg.dcs_updated = 0;\n    return msg;\n}\n\ndevices[device_name].is_online = true;\nglobal.set('devices', devices);\nmsg.dcs_updated = 1;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 1540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1f60fa20709135c1",
+        "type": "inject",
+        "z": "00d1bba548b033c7",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 1680,
+        "wires": [
+            [
+                "bfb3f0c9a2a4f8d6"
+            ]
+        ]
+    },
+    {
+        "id": "bfb3f0c9a2a4f8d6",
+        "type": "function",
+        "z": "00d1bba548b033c7",
+        "name": "connected_devices",
+        "func": "const devices = global.get('devices');\nconst device_objs = Object.values(devices);\nlet is_any_online = false;\nlet conn_state_map = {};\n\ndevice_objs.forEach(device_obj => {\n    if (device_obj.is_online)\n        is_any_online = true;\n\n    const { device_name, is_online } = device_obj;\n    conn_state_map[device_name] = is_online;\n});\n\nmsg.is_any_online = is_any_online;\nmsg.payload = conn_state_map;\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 1680,
+        "wires": [
+            [
+                "d56f74064a79f708"
+            ]
+        ]
+    },
+    {
+        "id": "d56f74064a79f708",
+        "type": "debug",
+        "z": "00d1bba548b033c7",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 520,
+        "y": 1680,
+        "wires": []
+    },
+    {
+        "id": "b234cd8330934ee8",
+        "type": "inject",
+        "z": "00d1bba548b033c7",
+        "name": "force_device_scan",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 170,
+        "y": 1380,
+        "wires": [
+            [
+                "327f8ba753da847d"
+            ]
+        ]
+    },
+    {
+        "id": "65366ba3a6a32b94",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "sec_mode",
+        "property": "device_config.sec_mode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 160,
+        "wires": [
+            [
+                "87d2e7deeaf8d694",
+                "2a6cc39c37a31ae4"
+            ]
+        ]
+    },
+    {
+        "id": "345e4e2351f19b6f",
+        "type": "switch",
+        "z": "00d1bba548b033c7",
+        "name": "light_mode",
+        "property": "device_config.light_mode",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 930,
+        "y": 280,
+        "wires": [
+            [
+                "8bf68051d6e48f8e"
+            ]
+        ]
+    },
+    {
+        "id": "f7ece6aec5e96192",
+        "type": "serial in",
+        "z": "2679f058c89dc8ce",
+        "name": "esp_now_in",
+        "serial": "359745e791749f13",
+        "x": 190,
+        "y": 120,
+        "wires": [
+            [
+                "bb0d7e2319afc004"
+            ]
+        ]
+    },
+    {
+        "id": "15946d377b28f357",
+        "type": "function",
+        "z": "2679f058c89dc8ce",
+        "name": "mqtt_logger",
+        "func": "const { cust_logger } = context.global;\nmsg.log = {\n    level: 'INFO',\n    module_id: node.id,\n};\ncust_logger.mqtt_log(msg);\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "783640fdc8c59e9d",
+        "type": "mqtt out",
+        "z": "2679f058c89dc8ce",
+        "name": "esp_now_out",
+        "topic": "",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "3222465e6f745686",
+        "x": 710,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "bb0d7e2319afc004",
+        "type": "json",
+        "z": "2679f058c89dc8ce",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "bfe7f0fe8a2eb76a"
+            ]
+        ]
+    },
+    {
+        "id": "bfe7f0fe8a2eb76a",
+        "type": "function",
+        "z": "2679f058c89dc8ce",
+        "name": "set_msg_data",
+        "func": "const mqtt_msg = msg.payload;\nreturn {...msg, ...mqtt_msg};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 120,
+        "wires": [
+            [
+                "15946d377b28f357",
+                "783640fdc8c59e9d"
+            ]
+        ]
+    }
+]

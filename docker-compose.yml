@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+
+  isi_v3_nodered:
+    image: nodered/node-red
+    network_mode: host
+    # devices:
+    #   - /dev/ttyUSB0:/dev/ttyUSB0
+    user: root
+    volumes:
+      - isi_v3_nodered_date:/data
+
+  isi_v3_mosquitto_broker:
+    image: eclipse-mosquitto
+    network_mode: host
+    volumes:
+      - ./conf/mosquitto_passwords.conf:/mosquitto/passwords
+      - ./conf/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - isi_v3_mosquitto_broker_data:/mosquitto/data
+      - isi_v3_mosquitto_broker_log:/mosquitto/log
+
+volumes:
+  isi_v3_nodered_date:
+  isi_v3_mosquitto_broker_data:
+  isi_v3_mosquitto_broker_log:

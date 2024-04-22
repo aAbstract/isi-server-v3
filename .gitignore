@@ -1,0 +1,5 @@
+.env
+conf/
+nodered/tokens.txt
+.pytest_cache
+**/__pycache__

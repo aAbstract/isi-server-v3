@@ -1,0 +1,13 @@
+[Unit]
+Description=ISI Core
+After=network.target
+
+[Service]
+Type=simple
+User=abstract
+WorkingDirectory=/home/abstract/work/isi_v3/isi_server
+ExecStart=/usr/bin/python3 /home/abstract/work/isi_v3/isi_server/main.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
