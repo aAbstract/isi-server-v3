@@ -113,6 +113,12 @@ seed_devices = [
         link_type=DeviceLinkType.LIVE,
         room_name='bedroom_0',
     ),
+    Device(
+        device_name='bedroom_temperature_sensor_0',
+        device_type=DeviceType.TEMP,
+        link_type=DeviceLinkType.LIVE,
+        room_name='bedroom_0',
+    ),
 ]
 
 seed_scenes = [

@@ -10,13 +10,14 @@ Testing and automations were done using **Python + Pytest**
 - Local IoT Device Managment
 - Basic and Advanced IoT Automations
 - Smart Security and Surveillance Using AI
-- Integration with ALEXA [TODO]
+- Voice Control **TODO**
+- Smart IoT AI Agents **TODO**
 
-## How to run (Docker) [TODO]
-## How to run (Disk Image) [TODO]
+## How to run (Docker) - TODO
+## How to run (Disk Image) - TODO
 
 ## Miscellaneous
 ### Get System Logs
 ```
-journalctl -u nodered.service > nodered_logs.txt
+journalctl -u isi_core.service > isi_core_logs.txt
 ```

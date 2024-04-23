@@ -67,8 +67,8 @@ def mqtt_loop():
 _mqtt_client.username_pw_set('isi_muser', 'oE74zxUFEY35JX5ffyx4zUZTSauYS2zCFVhvL6gZe5bsBCQo3tP2pCS5VrH98mvX')
 _mqtt_client.connect(mqtt_broker_ip, keepalive=60)
 _mqtt_client.subscribe('telem/broadcast')
-_mqtt_client.subscribe(f"command/{temp_device_name}/power_1")
-_mqtt_client.subscribe(f"command/{humd_device_name}/power_1")
+_mqtt_client.subscribe(f"command/{temp_device_name}/power_0")
+_mqtt_client.subscribe(f"command/{humd_device_name}/power_0")
 _mqtt_client.on_message = mqtt_read_handler
 _mqtt_client.publish(f"state/{temp_device_name}/main", temp_device_state, retain=True)
 _mqtt_client.publish(f"state/{humd_device_name}/main", humd_device_state, retain=True)

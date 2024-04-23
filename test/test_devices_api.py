@@ -160,18 +160,18 @@ def _test_mqtt_devices_cmd():
 
     def mqtt_read_handler(_1, _2, message: mqtt_client.MQTTMessage):
         nonlocal device_cmd_recv_msg
-        if message.topic == f"command/{device_name}/power_1":
+        if message.topic == f"command/{device_name}/power_0":
             device_cmd_recv_msg = message.payload.decode()
 
     # setup connection
     _mqtt_client = mqtt_client.Client(client_id='isi_server_test_mqtt_devices_cmd', clean_session=True, userdata=None)
     _mqtt_client.username_pw_set('isi_muser', 'oE74zxUFEY35JX5ffyx4zUZTSauYS2zCFVhvL6gZe5bsBCQo3tP2pCS5VrH98mvX')
     _mqtt_client.connect(_test_util.SERVER_IP, keepalive=60)
-    _mqtt_client.subscribe(f"command/{device_name}/power_1")
+    _mqtt_client.subscribe(f"command/{device_name}/power_0")
     _mqtt_client.on_message = mqtt_read_handler
 
     # send device cmd
-    _mqtt_client.publish(f"command/{device_name}/power_1", 'ON')
+    _mqtt_client.publish(f"command/{device_name}/power_0", 'ON')
 
     # validate cmd recv
     while not device_cmd_recv_msg:
@@ -181,8 +181,8 @@ def _test_mqtt_devices_cmd():
     # validate retain flag
     counter = 0
     device_cmd_recv_msg = None
-    _mqtt_client.unsubscribe(f"command/{device_name}/power_1")
-    _mqtt_client.subscribe(f"command/{device_name}/power_1")
+    _mqtt_client.unsubscribe(f"command/{device_name}/power_0")
+    _mqtt_client.subscribe(f"command/{device_name}/power_0")
     while not device_cmd_recv_msg:
         _mqtt_client.loop(0.1)
         counter += 1
@@ -203,7 +203,7 @@ def _test_sample_device_automation():
     def mqtt_read_handler(_1, _2, message: mqtt_client.MQTTMessage):
         nonlocal automation_recv_msg
         nonlocal client_notif_recv_msg
-        if message.topic == f"command/{automation_device_name}/power_1":
+        if message.topic == f"command/{automation_device_name}/power_0":
             automation_recv_msg = message.payload.decode()
         elif message.topic == 'telem/client/notif':
             client_notif_recv_msg = message.payload.decode()
@@ -213,7 +213,7 @@ def _test_sample_device_automation():
     _mqtt_client = mqtt_client.Client(client_id='isi_server_test_sample_device_automation', clean_session=True, userdata=None)
     _mqtt_client.username_pw_set('isi_muser', 'oE74zxUFEY35JX5ffyx4zUZTSauYS2zCFVhvL6gZe5bsBCQo3tP2pCS5VrH98mvX')
     _mqtt_client.connect(_test_util.SERVER_IP, keepalive=60)
-    _mqtt_client.subscribe(f"command/{automation_device_name}/power_1")
+    _mqtt_client.subscribe(f"command/{automation_device_name}/power_0")
     _mqtt_client.subscribe('telem/client/notif')
     _mqtt_client.on_message = mqtt_read_handler
 

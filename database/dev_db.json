@@ -1,1 +1,240 @@
-{"users": {"1": {"id": "dc6bebb6-539a-4e38-8321-502ab8d843ea", "username": "test_admin", "disp_name": "Test Admin", "pass_hash": "2e35419ec0151703c4c18135ba2683ebc6fe0004e5009bc35c5c598359ac43d181805cc2bb6ba8edcb7254738a2e0475c0d9ddd89cb661e9e8edf3485028acca", "user_role": 0, "phone_number": "+201012345678", "email": "test_admin@isi.dev", "is_online": false}, "2": {"id": "ed8b1275-3214-4f20-8176-ea88bad4e347", "username": "test_user", "disp_name": "Test User", "pass_hash": "7eebd7591186936eabb3c6c1e4b4c56d9eb2d04f471b99cebf29f37db38266e25d040dc1f84768e273753c0446b38ff217ba71a0e5d114d8b1ba4a8c11e414ef", "user_role": 1, "phone_number": "+201012345678", "email": "test_user@isi.dev", "is_online": false}}, "rooms": {"1": {"id": "b29bc689-7754-4019-bad5-e9048e683192", "room_name": "living_room_0", "room_icon": "living_room", "room_disp_name": "Living Room"}, "2": {"id": "8303bab1-39c1-4a04-8ee1-44c1f5caf48c", "room_name": "bedroom_0", "room_icon": "bedroom", "room_disp_name": "Bedroom"}, "3": {"id": "cf7a7fa6-c9db-468d-ab5a-dec30479fd61", "room_name": "children_room_0", "room_icon": "children_room", "room_disp_name": "Children Room"}, "4": {"id": "bc5a5c82-10f0-4ebd-af2e-f2bfc4896bc0", "room_name": "dining_room_0", "room_icon": "dining_room", "room_disp_name": "Dining Room"}, "5": {"id": "0eada8b1-fa22-48de-90df-5ef6b3b37c9d", "room_name": "kichen_0", "room_icon": "kichen", "room_disp_name": "Kichen"}, "6": {"id": "67a906e6-804d-42aa-9308-9edab32189c3", "room_name": "gym_0", "room_icon": "gym", "room_disp_name": "Gym"}, "7": {"id": "58d77d3b-4413-4909-ba5c-d060aedd4059", "room_name": "garden_0", "room_icon": "garden", "room_disp_name": "Garden"}, "8": {"id": "bd53aff0-34fa-4cce-9f32-f0def529aebb", "room_name": "office_0", "room_icon": "office", "room_disp_name": "Office"}, "9": {"id": "d9504e0b-ccfa-4ff5-b075-b6a2b4439d1d", "room_name": "tv_room_0", "room_icon": "tv_room", "room_disp_name": "Tv Room"}}, "devices": {"1": {"id": "bc7e82d7-4857-4ba0-b70a-3e7008c8f3c3", "device_name": "main_switch_0", "room_name": "living_room_0", "device_type": "SWITCH", "link_type": "LIVE", "device_config": [], "is_online": false}, "2": {"id": "7d7a65c5-e472-4e3b-ac88-7d82865e7f46", "device_name": "main_switch_1", "room_name": "living_room_0", "device_type": "SWITCH", "link_type": "LIVE", "device_config": [], "is_online": false}, "3": {"id": "3b295fe2-0451-497c-9abe-2cc10923de49", "device_name": "main_humidity_sensor_0", "room_name": "living_room_0", "device_type": "HUMD", "link_type": "LIVE", "device_config": [], "is_online": false}, "4": {"id": "5aa2c102-48ae-4c7a-9b80-c417c1eb9a1d", "device_name": "main_temperature_sensor_0", "room_name": "living_room_0", "device_type": "TEMP", "link_type": "LIVE", "device_config": [], "is_online": false}, "5": {"id": "e13876da-6c83-44e2-8685-ab12238c499c", "device_name": "main_plug_0", "room_name": "living_room_0", "device_type": "PLUG", "link_type": "LIVE", "device_config": [], "is_online": false}, "6": {"id": "083dbffd-12ce-4457-ad88-a7ecee664c46", "device_name": "main_rgb_0", "room_name": "living_room_0", "device_type": "RGB", "link_type": "LIVE", "device_config": [], "is_online": false}, "7": {"id": "c540ef4d-f6e8-4720-8845-2b2197f2d551", "device_name": "security_lock_0", "room_name": "living_room_0", "device_type": "SEC_LOCK", "link_type": "SUSPEND", "device_config": [], "is_online": false}, "8": {"id": "3637ee23-7d35-4b38-88cd-32bd7d4510a5", "device_name": "flood_sensor_0", "room_name": "living_room_0", "device_type": "FLOOD", "link_type": "SUSPEND", "device_config": [], "is_online": false}, "9": {"id": "74b696fb-c21f-4ab9-b416-e85f85897e50", "device_name": "motion_sensor_0", "room_name": "living_room_0", "device_type": "MOTION", "link_type": "LIVE", "device_config": [{"config_name": "light_mode", "config_disp_name": "Light Mode", "config_val": true}, {"config_name": "sec_mode", "config_disp_name": "Security Mode", "config_val": true}], "is_online": false}, "10": {"id": "0425df76-3871-40db-9f12-8987d11426cb", "device_name": "main_dimmer_0", "room_name": "living_room_0", "device_type": "DIMMER", "link_type": "LIVE", "device_config": [], "is_online": false}, "11": {"id": "d5a33d9f-2664-4d1b-9cd4-c16ac4860537", "device_name": "bedroom_switch_0", "room_name": "bedroom_0", "device_type": "SWITCH", "link_type": "LIVE", "device_config": [], "is_online": false}}, "scenes": {"1": {"id": "9458a93e-6b6c-4f8e-ba6b-0f7ce989d455", "scene_disp_name": "Home Entrance", "actions": [{"device_name": "main_switch_0", "device_pref": "power_0", "payload": "{\"command\":\"TOGGLE\"}"}, {"device_name": "main_dimmer_0", "device_pref": "dimmer_0", "payload": "{\"command\":\"DIM_2\"}"}]}, "2": {"id": "7e4da3aa-aa04-43ff-ba96-f155d0f014f4", "scene_disp_name": "Bed Time", "actions": [{"device_name": "main_switch_0", "device_pref": "power_0", "payload": "{\"command\":\"TOGGLE\"}"}, {"device_name": "main_switch_1", "device_pref": "power_0", "payload": "{\"command\":\"TOGGLE\"}"}, {"device_name": "main_dimmer_0", "device_pref": "dimmer_0", "payload": "{\"command\":\"DIM_1\"}"}]}}}
+{
+    "users": {
+        "1": {
+            "id": "dafabf28-7cfb-455a-a271-08e8e69941ef",
+            "username": "test_admin",
+            "disp_name": "Test Admin",
+            "pass_hash": "2e35419ec0151703c4c18135ba2683ebc6fe0004e5009bc35c5c598359ac43d181805cc2bb6ba8edcb7254738a2e0475c0d9ddd89cb661e9e8edf3485028acca",
+            "user_role": 0,
+            "phone_number": "+201012345678",
+            "email": "test_admin@isi.dev",
+            "is_online": false
+        },
+        "2": {
+            "id": "9259e9d1-4636-4eba-bf08-1597e1e61df1",
+            "username": "test_user",
+            "disp_name": "Test User",
+            "pass_hash": "7eebd7591186936eabb3c6c1e4b4c56d9eb2d04f471b99cebf29f37db38266e25d040dc1f84768e273753c0446b38ff217ba71a0e5d114d8b1ba4a8c11e414ef",
+            "user_role": 1,
+            "phone_number": "+201012345678",
+            "email": "test_user@isi.dev",
+            "is_online": false
+        }
+    },
+    "rooms": {
+        "1": {
+            "id": "2d273508-a04d-47b7-9d76-716fafdd209c",
+            "room_name": "living_room_0",
+            "room_icon": "living_room",
+            "room_disp_name": "Living Room"
+        },
+        "2": {
+            "id": "53532189-f845-44bc-8295-c6b77db3eefe",
+            "room_name": "bedroom_0",
+            "room_icon": "bedroom",
+            "room_disp_name": "Bedroom"
+        },
+        "3": {
+            "id": "c992de2b-c026-4b81-b48a-5210028d450b",
+            "room_name": "children_room_0",
+            "room_icon": "children_room",
+            "room_disp_name": "Children Room"
+        },
+        "4": {
+            "id": "1ae9cebe-0c21-43af-aa7f-268b797a6530",
+            "room_name": "dining_room_0",
+            "room_icon": "dining_room",
+            "room_disp_name": "Dining Room"
+        },
+        "5": {
+            "id": "2b01500c-28a0-4fb4-8162-103ba754143d",
+            "room_name": "kichen_0",
+            "room_icon": "kichen",
+            "room_disp_name": "Kichen"
+        },
+        "6": {
+            "id": "c1331e3f-0e3c-4ee8-bf3f-46bf8c67fbb5",
+            "room_name": "gym_0",
+            "room_icon": "gym",
+            "room_disp_name": "Gym"
+        },
+        "7": {
+            "id": "c6e51ffd-2551-4db1-8fbf-5021a04cf7b5",
+            "room_name": "garden_0",
+            "room_icon": "garden",
+            "room_disp_name": "Garden"
+        },
+        "8": {
+            "id": "6af0dcf9-b995-48c3-8180-117d5bc05c29",
+            "room_name": "office_0",
+            "room_icon": "office",
+            "room_disp_name": "Office"
+        },
+        "9": {
+            "id": "dd5aa547-a8ec-45d5-846e-759134a40148",
+            "room_name": "tv_room_0",
+            "room_icon": "tv_room",
+            "room_disp_name": "Tv Room"
+        }
+    },
+    "devices": {
+        "1": {
+            "id": "2667fbd5-c088-40d3-bb6e-d5b312dd21e8",
+            "device_name": "main_switch_0",
+            "room_name": "living_room_0",
+            "device_type": "SWITCH",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "2": {
+            "id": "c69788ae-c1a3-4dc3-8c0d-85621b22dd72",
+            "device_name": "main_switch_1",
+            "room_name": "living_room_0",
+            "device_type": "SWITCH",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "3": {
+            "id": "829853cd-71ce-4840-a550-30a51551e1ac",
+            "device_name": "main_humidity_sensor_0",
+            "room_name": "living_room_0",
+            "device_type": "HUMD",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "4": {
+            "id": "f4e8140d-7de5-4270-b826-0ef275d4e789",
+            "device_name": "main_temperature_sensor_0",
+            "room_name": "living_room_0",
+            "device_type": "TEMP",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "5": {
+            "id": "a6ab47dc-deac-483f-8cf6-c3d678495aef",
+            "device_name": "main_plug_0",
+            "room_name": "living_room_0",
+            "device_type": "PLUG",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "6": {
+            "id": "083a5491-b411-4052-ad28-909b6578aace",
+            "device_name": "main_rgb_0",
+            "room_name": "living_room_0",
+            "device_type": "RGB",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "7": {
+            "id": "b65b2e54-68d0-4f4b-9cf7-f09d8e921106",
+            "device_name": "security_lock_0",
+            "room_name": "living_room_0",
+            "device_type": "SEC_LOCK",
+            "link_type": "SUSPEND",
+            "device_config": [],
+            "is_online": false
+        },
+        "8": {
+            "id": "100f08d5-b466-434b-be72-8bdbae5ea54d",
+            "device_name": "flood_sensor_0",
+            "room_name": "living_room_0",
+            "device_type": "FLOOD",
+            "link_type": "SUSPEND",
+            "device_config": [],
+            "is_online": false
+        },
+        "9": {
+            "id": "87bfb75b-4086-414a-a218-0173aff010b6",
+            "device_name": "motion_sensor_0",
+            "room_name": "living_room_0",
+            "device_type": "MOTION",
+            "link_type": "LIVE",
+            "device_config": [
+                {
+                    "config_name": "light_mode",
+                    "config_disp_name": "Light Mode",
+                    "config_val": true
+                },
+                {
+                    "config_name": "sec_mode",
+                    "config_disp_name": "Security Mode",
+                    "config_val": true
+                }
+            ],
+            "is_online": false
+        },
+        "10": {
+            "id": "d46d66ca-2b53-45df-8f84-0fac5637c43d",
+            "device_name": "main_dimmer_0",
+            "room_name": "living_room_0",
+            "device_type": "DIMMER",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "11": {
+            "id": "9113fa3f-a75d-4393-8b49-ee8b803450d9",
+            "device_name": "bedroom_switch_0",
+            "room_name": "bedroom_0",
+            "device_type": "SWITCH",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        },
+        "12": {
+            "id": "56d4decc-5e1b-4916-818c-85949a2efe7f",
+            "device_name": "bedroom_temperature_sensor_0",
+            "room_name": "bedroom_0",
+            "device_type": "TEMP",
+            "link_type": "LIVE",
+            "device_config": [],
+            "is_online": false
+        }
+    },
+    "scenes": {
+        "1": {
+            "id": "fb507258-b9fa-42f8-a1d6-ef928ef6b54a",
+            "scene_disp_name": "Home Entrance",
+            "actions": [
+                {
+                    "device_name": "main_switch_0",
+                    "device_pref": "power_0",
+                    "payload": "{\"command\":\"TOGGLE\"}"
+                },
+                {
+                    "device_name": "main_dimmer_0",
+                    "device_pref": "dimmer_0",
+                    "payload": "{\"command\":\"DIM_2\"}"
+                }
+            ]
+        },
+        "2": {
+            "id": "ed0f47e2-9198-4709-9acb-f26acb00884c",
+            "scene_disp_name": "Bed Time",
+            "actions": [
+                {
+                    "device_name": "main_switch_0",
+                    "device_pref": "power_0",
+                    "payload": "{\"command\":\"TOGGLE\"}"
+                },
+                {
+                    "device_name": "main_switch_1",
+                    "device_pref": "power_0",
+                    "payload": "{\"command\":\"TOGGLE\"}"
+                },
+                {
+                    "device_name": "main_dimmer_0",
+                    "device_pref": "dimmer_0",
+                    "payload": "{\"command\":\"DIM_1\"}"
+                }
+            ]
+        }
+    }
+}
