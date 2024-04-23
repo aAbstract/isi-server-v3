@@ -160,7 +160,7 @@
                 {
                     "config_name": "light_mode",
                     "config_disp_name": "Light Mode",
-                    "config_val": true
+                    "config_val": false
                 },
                 {
                     "config_name": "sec_mode",

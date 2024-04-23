@@ -51,7 +51,7 @@ def assert_api_get_struct(route: str, access_tokens: list[str], target_keys: set
         return items
 
 
-def assert_api_get_fail_msg(route: str, access_tokens: list[str], target_status_code: int, target_msg: str, json_body: dict = {}):
+def assert_api_fail_msg(route: str, access_tokens: list[str], target_status_code: int, target_msg: str, json_body: dict = {}):
     api_url = f"{get_api_url()}/{route}"
     for access_token in access_tokens:
         http_headers = {'Authorization': f"Bearer {access_token}"}
@@ -59,3 +59,12 @@ def assert_api_get_fail_msg(route: str, access_tokens: list[str], target_status_
         assert http_res.status_code == target_status_code
         json_res = http_res.json()
         assert json_res['detail'] == target_msg
+
+
+def assert_api_ok_msg(route: str, access_tokens: list[str], json_body: dict = {}):
+    api_url = f"{get_api_url()}/{route}"
+    for access_token in access_tokens:
+        http_headers = {'Authorization': f"Bearer {access_token}"}
+        http_res = requests.post(api_url, headers=http_headers, json=json_body)
+        assert http_res.status_code == 200
+        assert http_res.json() == 'OK'

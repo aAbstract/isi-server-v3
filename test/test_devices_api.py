@@ -31,7 +31,7 @@ def test_get_device_not_found():
         _test_util.login_user('test_user', 'upass123'),
     ]
 
-    _test_util.assert_api_get_fail_msg(api_route, access_tokens, 404, 'Device not Found', json_body={'device_name': 'fake_device_name'})
+    _test_util.assert_api_fail_msg(api_route, access_tokens, 404, 'Device not Found', json_body={'device_name': 'fake_device_name'})
 
 
 def test_get_device():
@@ -54,6 +54,48 @@ def test_get_temp_humd_devices():
     devices = _test_util.assert_api_get_struct(api_route, access_tokens, {'device_type', 'is_online', 'room_name', 'id', 'device_config', 'link_type', 'device_name'})
     device_types = set([x['device_type'] for x in devices])
     assert device_types == {'TEMP', 'HUMD'}
+
+
+def test_change_device_config_device_not_found():
+    api_route = 'user/devices/change-device-config'
+    access_tokens = [
+        _test_util.login_user('test_admin', 'TzQbMhHbZNXDJxpliqWNbtVAtc9r7Q33'),
+        _test_util.login_user('test_user', 'upass123'),
+    ]
+
+    _test_util.assert_api_fail_msg(api_route, access_tokens, 404, 'Device not Found', json_body={
+        'device_name': 'fake_device',
+        'config_name': '',
+        'config_new_val': True,
+    })
+
+
+def test_change_device_config_config_name_not_found():
+    api_route = 'user/devices/change-device-config'
+    access_tokens = [
+        _test_util.login_user('test_admin', 'TzQbMhHbZNXDJxpliqWNbtVAtc9r7Q33'),
+        _test_util.login_user('test_user', 'upass123'),
+    ]
+
+    _test_util.assert_api_fail_msg(api_route, access_tokens, 400, 'Invalid config_name', json_body={
+        'device_name': 'motion_sensor_0',
+        'config_name': 'fake_config',
+        'config_new_val': True,
+    })
+
+
+def test_change_device_config_success():
+    api_route = 'user/devices/change-device-config'
+    access_tokens = [
+        _test_util.login_user('test_admin', 'TzQbMhHbZNXDJxpliqWNbtVAtc9r7Q33'),
+        _test_util.login_user('test_user', 'upass123'),
+    ]
+
+    _test_util.assert_api_ok_msg(api_route, access_tokens, json_body={
+        'device_name': 'motion_sensor_0',
+        'config_name': 'sec_mode',
+        'config_new_val': True,
+    })
 
 
 def _test_configure_device_lock():

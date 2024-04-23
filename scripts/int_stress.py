@@ -4,14 +4,14 @@ import sys
 import requests
 import json
 import threading
-import mqtt_net_conf
 from stress_common import *
 
 
 TEST_COUNT = 10
 THREAD_COUNT = 10
-SERVER_PORT = 1880
-SERVER_URL = f"http://{mqtt_net_conf.SERVER_IP}:{SERVER_PORT}"
+SERVER_ADDR = '127.0.0.1'
+SERVER_PORT = 8080
+SERVER_URL = f"http://{SERVER_ADDR}:{SERVER_PORT}"
 API_URL = f"{SERVER_URL}/api"
 
 
@@ -32,7 +32,7 @@ if 'test' not in dir_content:
     sys.exit(1)
 
 # check if server port is open
-if not is_port_open(mqtt_net_conf.SERVER_IP, SERVER_PORT):
+if not is_port_open(SERVER_ADDR, SERVER_PORT):
     print_err_log(f"Server {SERVER_URL} is offline")
     sys.exit(1)
 
@@ -43,10 +43,8 @@ if http_res.status_code != 200:
     print_err_log(f"Local server error [status_code = {http_res.status_code}]")
     sys.exit(1)
 
-json_res_body = json.loads(http_res.content.decode())
-
-if not (json_res_body['success'] and json_res_body['msg'] == 'server online'):
-    print_err_log(f"Local server error [json_res_body = {json_res_body}]")
+if http_res.json() != 'SERVER_ONLINE':
+    print_err_log(f"Local server error [json_res_body = {http_res.json()}]")
     sys.exit(1)
 
 test_mode = sys.argv[1]

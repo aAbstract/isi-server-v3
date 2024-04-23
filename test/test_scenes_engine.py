@@ -28,7 +28,7 @@ def test_get_scene_not_found():
         _test_util.login_user('test_admin', 'TzQbMhHbZNXDJxpliqWNbtVAtc9r7Q33'),
         _test_util.login_user('test_user', 'upass123'),
     ]
-    _test_util.assert_api_get_fail_msg(api_route, access_tokens, 404, 'Scene not Found', json_body={'scene_id': 'fake_scene_id'})
+    _test_util.assert_api_fail_msg(api_route, access_tokens, 404, 'Scene not Found', json_body={'scene_id': 'fake_scene_id'})
 
 
 def test_get_scene():
